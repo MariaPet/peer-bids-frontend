@@ -2,7 +2,6 @@ import React from 'react';
 // import './App.css';
 import { Link, browserHistory } from 'react-router'
 
-
 export default function App({children}) {
   return (
     <div>
@@ -13,6 +12,8 @@ export default function App({children}) {
         <Link to="/">Home</Link>
         {' '}
         <Link to="/test">test</Link>
+	    	{' '}
+		    <Link to="/signUp">SingUp</Link>
       </header>
       <div>
         {children}

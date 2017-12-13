@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import Test from './components/Test';
+import SignUp from './components/SignUp';
 import ApiData from './containers/ApiData';
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
@@ -22,6 +23,7 @@ ReactDOM.render(
                 {/*IndexRoute component holds the body of the homepage*/}
                 <IndexRoute component={ApiData}/>
                 <Route path="test" component={Test}/>
+                <Route path="signUp" component={SignUp}/>
             </Route>
         </Router>
     </Provider>,

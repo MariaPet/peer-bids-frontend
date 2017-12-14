@@ -12,6 +12,18 @@ import noUserImage from '../img/no-user-image.gif'
 export default class UserProfile extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            tab: "Bids"
+        }
+        this.showTab = this.showTab.bind(this);
+    }
+    showTab = tabName => e => {
+        console.log(tabName);
+        this.setState(
+            {
+                tab: tabName
+            }
+        );
     }
     render() {
         return (
@@ -35,18 +47,49 @@ export default class UserProfile extends Component {
                             Activity
                             <ul className="nav nav-tabs card-header-tabs">
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="#">Bids</a>
+                                    <a className="nav-link active" href="#" onClick={this.showTab("Bids")}>Bids</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Auctions</a>
+                                    <a className="nav-link" href="#" onClick={this.showTab("Auctions")}>Auctions</a>
                                 </li>
                             </ul>
                         </CardHeader>
                         <CardBody>
+                            {
+                                this.state.tab === "Bids" ? 
+                                (<Bids />) : 
+                                (<Auctions />)
+                            }
                         </CardBody>
                     </Card>
                 </Col>
             </Row>
+        );
+    }
+}
+
+class Bids extends Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <div>
+                Bids
+            </div>
+        );
+    }
+}
+
+class Auctions extends Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <div>
+                Auctions
+            </div>
         );
     }
 }

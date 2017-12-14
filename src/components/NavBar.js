@@ -35,6 +35,8 @@ import {
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     <NavLink href="#">Login</NavLink>
+                                </NavItem>
+                                <NavItem>
                                     <NavLink href="#">Register</NavLink>
                                 </NavItem>
                             </Nav>

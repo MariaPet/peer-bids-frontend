@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import Test from './components/Test';
+import MapView from './components/MapView';
 import ApiData from './components/FrontSearch';
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
@@ -23,7 +23,7 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 {/*IndexRoute component holds the body of the homepage*/}
                 <IndexRoute component={FrontSearch}/>
-                <Route path="test" component={Test}/>
+                <Route path="map" component={MapView}/>
             </Route>
         </Router>
     </Provider>,

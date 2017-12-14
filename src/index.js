@@ -5,6 +5,8 @@ import './index.css';
 import App from './components/App';
 import MapView from './components/MapView';
 import ApiData from './components/FrontSearch';
+import UserProfile from './components/UserProfile'
+import NewAuctionForm from './components/NewAuctionForm'
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'
@@ -14,7 +16,7 @@ import FrontSearch from './components/FrontSearch';
 
 
 // Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
     <Provider store={store}>
@@ -24,6 +26,8 @@ ReactDOM.render(
                 {/*IndexRoute component holds the body of the homepage*/}
                 <IndexRoute component={FrontSearch}/>
                 <Route path="map" component={MapView}/>
+                <Route path="profile" component={UserProfile} />
+                <Route path="new" component={NewAuctionForm} />
             </Route>
         </Router>
     </Provider>,

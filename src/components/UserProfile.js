@@ -18,7 +18,6 @@ export default class UserProfile extends Component {
         this.showTab = this.showTab.bind(this);
     }
     showTab = tabName => e => {
-        console.log(tabName);
         this.setState(
             {
                 tab: tabName
@@ -47,10 +46,10 @@ export default class UserProfile extends Component {
                             Activity
                             <ul className="nav nav-tabs card-header-tabs">
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="#" onClick={this.showTab("Bids")}>Bids</a>
+                                    <a className={this.state.tab === "Bids" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Bids")}>Bids</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#" onClick={this.showTab("Auctions")}>Auctions</a>
+                                    <a className={this.state.tab === "Auctions" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Auctions")}>Auctions</a>
                                 </li>
                             </ul>
                         </CardHeader>

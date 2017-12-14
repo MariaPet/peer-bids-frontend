@@ -1,4 +1,5 @@
 import apiData from './apiData'
+import auctions from './auctions'
 import { combineReducers } from 'redux'
 import {routerReducer } from 'react-router-redux'
 
@@ -11,5 +12,6 @@ import {routerReducer } from 'react-router-redux'
 
 export default combineReducers({
     api: apiData,
+    auctions,
     routing: routerReducer
 });

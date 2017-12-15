@@ -18,6 +18,7 @@ export default class UserProfile extends Component {
         this.showTab = this.showTab.bind(this);
     }
     showTab = tabName => e => {
+        e.preventDefault();
         this.setState(
             {
                 tab: tabName

@@ -41,6 +41,9 @@ import {
                                     <Link className="nav-link" to='/new'>Create Auction</Link>
                                 </NavItem>
                                 <NavItem>
+                                    <Link className="nav-link" to='/map'>Map</Link>
+                                </NavItem>
+                                <NavItem>
                                     <NavLink href="#">Login</NavLink>
                                 </NavItem>
                                 <NavItem>

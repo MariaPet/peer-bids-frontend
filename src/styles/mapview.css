@@ -1,0 +1,23 @@
+#mapView {
+    position: relative;
+    height: 500px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.transform-slider {
+    height: 100%;
+    width: 0%;
+    position: absolute;
+    background-color: grey;
+    transition: width 2s ease;
+}
+
+.slide-in {
+    width:30%;
+    transition: width 2s ease;
+}

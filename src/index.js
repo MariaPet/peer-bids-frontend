@@ -12,7 +12,7 @@ import store from './redux/store/config';
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import FrontSearch from './components/FrontSearch';
+import FrontSearch from './containers/FrontSearch';
 
 
 // Create an enhanced history that syncs navigation events with the store

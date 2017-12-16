@@ -15,7 +15,7 @@ export default class FrontSearch extends Component {
                         <hr className="my-4"/>
                         <div className="d-flex justify-content-center">
                             <input type="text"  placeholder="Search" />
-                            <button type="submit" className="btn btn-outline-primary"> Search  </button> 
+                            <button onClick={this.props.onSearch} type="submit" className="btn btn-outline-primary"> Search  </button> 
                         </div> 
                     </div>
                 </div>

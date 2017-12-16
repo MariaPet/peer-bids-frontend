@@ -12,8 +12,9 @@ export const getApiData = (dispatch, state) => {
 
 export const getAuctions = (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
-    var getAuctions = "link_to_backend_endpoint";
+    var getAuctions = "http://localhost:5000/api/product";
     $.getJSON(getAuctions).done(data => {
+        debugger;
         dispatch({type: 'GET_AUCTIONS', auctions: data});
     })
 }

@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import MapView from './components/MapView';
-import ApiData from './components/FrontSearch';
 import UserProfile from './components/UserProfile'
 import NewAuctionForm from './components/NewAuctionForm'
 import registerServiceWorker from './registerServiceWorker';

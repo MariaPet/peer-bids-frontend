@@ -18,3 +18,20 @@ export const getAuctions = (dispatch, state) => {
         dispatch({type: 'GET_AUCTIONS', auctions: data});
     })
 }
+
+export const registerUser = (dispatch, state) => {
+    dispatch({type: 'AUTHENTICATION_LOADING'});
+    var registerUser = "register_enpoint";
+    //JSON call post
+}
+
+export const login = (dispatch, state) => {
+    dispatch({type: 'AUTHENTICATION_LOADING'});
+    var loginUser = "login_endpoint";
+    //JSON call get
+}
+
+export const logout = (dispatch, state) => {
+    dispatch({type: 'LOG_OUT'});
+    //delete token from local storage
+}

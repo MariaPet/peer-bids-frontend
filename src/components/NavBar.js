@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import $ from 'jquery';
+
 import {
     Collapse,
     Navbar,
@@ -18,7 +20,7 @@ import {
             super(props);
             this.toggle = this.toggle.bind(this);
             this.state = {
-                isOpen: false
+                isOpen: false,
             };
         }
         toggle() {
@@ -26,6 +28,7 @@ import {
                 isOpen: !this.state.isOpen
             });
         }
+        
         render() {
             return (
                 <div>
@@ -47,7 +50,7 @@ import {
                                     <NavLink href="#">Login</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="#">Register</NavLink>
+                                    <NavLink onClick={this.props.toggleRegisterModal} href="#">Register</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>

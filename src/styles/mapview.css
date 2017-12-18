@@ -11,13 +11,14 @@
 
 .transform-slider {
     height: 100%;
-    width: 0%;
+    width: 30%;
+    left: -100%;
     position: absolute;
     background-color: grey;
-    transition: width 2s ease;
+    transition: left 2s ease;
 }
 
 .slide-in {
-    width:30%;
+    left: 0%;
     transition: width 2s ease;
 }

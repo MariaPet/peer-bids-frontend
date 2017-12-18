@@ -47,10 +47,13 @@ import {
                                     <Link className="nav-link" to='/map'>Map</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="#">Login</NavLink>
+                                    <NavLink onClick={this.props.toggleLoginModal}>Login</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink onClick={this.props.toggleRegisterModal} href="#">Register</NavLink>
+                                    <NavLink onClick={this.props.toggleRegisterModal}>Register</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink>Logout</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>

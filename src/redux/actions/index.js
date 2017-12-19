@@ -36,7 +36,6 @@ export const login = (credentials) => (dispatch, state) => {
 }
 
 export const logout = (dispatch, state) => {
-    window.localStorage.removeItem("token")
+    window.localStorage.removeItem("token");
     dispatch({type: 'LOG_OUT'});
-    //delete token from local storage
 }

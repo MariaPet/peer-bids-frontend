@@ -53,7 +53,7 @@ import {
                                     <NavLink onClick={this.props.toggleRegisterModal}>Register</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink>Logout</NavLink>
+                                    <NavLink onClick={this.props.logout}>Logout</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>

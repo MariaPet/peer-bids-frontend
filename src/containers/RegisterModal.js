@@ -14,4 +14,4 @@ function mapDispatchToProps(user) {
 export default connect(
     (state, props) => ({user: state.user}),
     mapDispatchToProps
-)(RegisterModal)
+)(RegisterModal);

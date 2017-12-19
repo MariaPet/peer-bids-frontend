@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import RegisterModal from '../containers/RegisterModal';
-import LoginModal from './LoginModal';
+import LoginModal from '../containers/LoginModal';
 import { Link, browserHistory } from 'react-router'
 
 
@@ -9,7 +9,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
-    this.toggleLoginModal = this.toggleRegisterModal.bind(this);
+    this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.state = {
       showRegisterModal: false,
       showLoginModal: false

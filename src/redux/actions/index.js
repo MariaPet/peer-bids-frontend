@@ -26,10 +26,13 @@ export const registerUser = (user) => (dispatch, state) => {
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
-export const login = (dispatch, state) => {
+export const login = (credentials) => (dispatch, state) => {
+    debugger;
     dispatch({type: 'AUTHENTICATION_LOADING'});
-    var loginUser = "login_endpoint";
-    //JSON call get
+    var loginUser = "http://localhost:5000/login";
+    $.post(loginUser, credentials, (responceData) => {
+        dispatch({type: 'LOGIN', user: responceData.data});
+    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
 export const logout = (dispatch, state) => {

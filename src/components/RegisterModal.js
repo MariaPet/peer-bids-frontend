@@ -21,18 +21,18 @@ export default class RegisterModal extends Component {
         let key = e.target.name;
         let value = e.target.value;
         let newState = {};
-        newState[key] = value
+        newState[key] = value;
         this.setState(newState);
     }
     render() {
         return (
             <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                <ModalHeader toggle={this.toggle}>REGISTER</ModalHeader>
                 <ModalBody>
                     <RegisterForm onInput={this.onInput} inputs={this.state}/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={(e) => this.props.registerUser(this.state)}>Do Something</Button>{' '}
+                    <Button color="primary" onClick={(e) => this.props.registerUser(this.state)}>Register</Button>{' '}
                     <Button color="secondary" onClick={this.props.toggleModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>

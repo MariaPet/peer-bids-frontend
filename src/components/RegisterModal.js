@@ -9,10 +9,10 @@ export default class RegisterModal extends Component {
             username: "",
             email: "",
             password: "",
-            confirmPassword: "",
+            confirm_password: "",
             street: "",
             city: "",
-            postalCode: "",
+            postal_code: "",
             telephone: ""
         }
         this.onInput = this.onInput.bind(this);
@@ -32,7 +32,7 @@ export default class RegisterModal extends Component {
                     <RegisterForm onInput={this.onInput} inputs={this.state}/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.props.toggleModal}>Do Something</Button>{' '}
+                    <Button color="primary" onClick={(e) => this.props.registerUser(this.state)}>Do Something</Button>{' '}
                     <Button color="secondary" onClick={this.props.toggleModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
@@ -74,8 +74,8 @@ class RegisterForm extends Component {
                     </Col>
                     <Col sm="12" md="6">
                         <FormGroup>
-                            <Label for="confirmPassword">Confirm Password</Label>
-                            <Input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" value={this.props.inputs.confirmPassword} 
+                            <Label for="confirm_password">Confirm Password</Label>
+                            <Input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" value={this.props.inputs.confirm_password} 
                             onChange={this.props.onInput} />
                         </FormGroup>
                     </Col>
@@ -95,8 +95,8 @@ class RegisterForm extends Component {
                     </Col>
                     <Col sm="12" md="6">
                         <FormGroup>
-                            <Label for="postalCode">Postal Code</Label>
-                            <Input name="postalCode" id="postalCode" placeholder="Enter your postal code" value={this.props.inputs.postalCode} 
+                            <Label for="postal_code">Postal Code</Label>
+                            <Input name="postal_code" id="postal_code" placeholder="Enter your postal code" value={this.props.inputs.postal_code} 
                             onChange={this.props.onInput} />
                         </FormGroup>
                     </Col>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
-import RegisterModal from './RegisteModal';
+import RegisterModal from '../containers/RegisterModal';
 import LoginModal from './LoginModal';
 import { Link, browserHistory } from 'react-router'
 

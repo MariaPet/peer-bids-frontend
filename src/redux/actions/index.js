@@ -14,15 +14,16 @@ export const getAuctions = (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var getAuctions = "http://localhost:5000/api/product";
     $.getJSON(getAuctions).done(data => {
-        debugger;
         dispatch({type: 'GET_AUCTIONS', auctions: data});
     })
 }
 
-export const registerUser = (dispatch, state) => {
+export const registerUser = (user) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING'});
-    var registerUser = "register_enpoint";
-    //JSON call post
+    var registerUser = "http://localhost:5000/signup";
+    $.post(registerUser, user, (responceData) => {
+        dispatch({type: 'REGISTER', user: responceData.data});
+    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
 export const login = (dispatch, state) => {

@@ -27,15 +27,16 @@ export const registerUser = (user) => (dispatch, state) => {
 }
 
 export const login = (credentials) => (dispatch, state) => {
-    debugger;
     dispatch({type: 'AUTHENTICATION_LOADING'});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
+        window.localStorage.setItem("token", responceData.token);
         dispatch({type: 'LOGIN', user: responceData.data});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
 export const logout = (dispatch, state) => {
+    window.localStorage.removeItem("token")
     dispatch({type: 'LOG_OUT'});
     //delete token from local storage
 }

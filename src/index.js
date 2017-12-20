@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import MapView from './components/MapView';
 import UserProfile from './components/UserProfile'
-import NewAuctionForm from './components/NewAuctionForm'
+import NewAuctionForm from './containers/NewAuctionForm'
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'

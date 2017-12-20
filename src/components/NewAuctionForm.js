@@ -6,11 +6,11 @@ export default class NewAuctionForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ItemName: "",
+            title: "",
             description: "",
-            minPrice: "",
+            max_price: "",
             status: "",
-            expiryDate: "",
+            expiration_date: "",
             category: ""
         };
         this.onInput = this.onInput.bind(this);
@@ -30,7 +30,7 @@ export default class NewAuctionForm extends Component {
                 <Input name="ItemName" 
                 id="ItemName" 
                 placeholder="Enter a item name" 
-                value={this.state.ItemName} 
+                value={this.state.title} 
                 onChange={this.onInput}/>
             </FormGroup>
             <FormGroup>
@@ -50,7 +50,7 @@ export default class NewAuctionForm extends Component {
             </FormGroup> */}
             <FormGroup>
                 <Label for="expiryDate">Expiration Date</Label>
-                <Input type="date" name="expiryDate" id="expiryDate" placeholder="Enter Expireation Date" value={this.state.expiryDate} 
+                <Input type="date" name="expiryDate" id="expiryDate" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
                 onChange={this.onInput}/>
             </FormGroup>
             <FormGroup>
@@ -62,14 +62,14 @@ export default class NewAuctionForm extends Component {
                 </Input>
             </FormGroup>
             <FormGroup>
-            <Label for="minPrice">Minimum Price</Label>
+            <Label for="minPrice">Maximum Price</Label>
             <InputGroup>
                 <InputGroupAddon>$</InputGroupAddon>
-                <Input  type="number" name = "minPrice" id = "minPrice" placeholder="Enter minimum price" step="1" value={this.state.minPrice} 
+                <Input  type="number" name = "minPrice" id = "minPrice" placeholder="Enter minimum price" step="1" value={this.state.max_price} 
                 onChange={this.onInput}/>
             </InputGroup>
             </FormGroup>
-            <Button color="primary" type = "submit" onClick={this.props.createAuction(this.state)}>Create Auction</Button>
+            <Button color="primary" type = "submit" onClick={(e) => this.props.createAuction(this.state)}>Create Auction</Button>
           
         </Form>);
     }

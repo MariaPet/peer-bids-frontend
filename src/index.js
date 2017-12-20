@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import MapView from './components/MapView';
 import UserProfile from './components/UserProfile'
-import Auction from './containers/Auction'
+import NewAuctionForm from './containers/NewAuctionForm'
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'
@@ -26,7 +26,7 @@ ReactDOM.render(
                 <IndexRoute component={FrontSearch}/>
                 <Route path="map" component={MapView}/>
                 <Route path="profile" component={UserProfile} />
-                <Route path="new" component={Auction} />
+                <Route path="new" component={NewAuctionForm} />
             </Route>
         </Router>
     </Provider>,

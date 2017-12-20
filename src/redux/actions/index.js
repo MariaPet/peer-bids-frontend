@@ -40,10 +40,10 @@ export const logout = (dispatch, state) => {
     //delete token from local storage
 }
 
-export const createAuction = (user) => (dispatch, state) => {
-    dispatch({type: 'AUCTION_LOADING'});
+export const createAuction = (auction) => (dispatch, state) => {
+    dispatch({type: 'AUCTIONS_LOADING'});
     var auctionCreate = "http://localhost:5000/product";
-    $.post(auctionCreate, user, (responceData) => {
-        dispatch({type: 'CREATE_AUCTION', user: responceData.data});
+    $.post(auctionCreate, auction, (responceData) => {
+        dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
     }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
 }

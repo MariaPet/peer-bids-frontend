@@ -31,19 +31,27 @@ export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING'});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
+        window.localStorage.setItem("token", responceData.token);
         dispatch({type: 'LOGIN', user: responceData.data});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
 export const logout = (dispatch, state) => {
+    window.localStorage.removeItem("token");
     dispatch({type: 'LOG_OUT'});
-    //delete token from local storage
 }
 
 export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
-    var auctionCreate = "http://localhost:5000/product";
-    $.post(auctionCreate, auction, (responceData) => {
-        dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
-    }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
+    var token = window.localStorage.getItem("token");
+    if (token) {
+        var auctionCreate = "http://localhost:5000/product";
+        $.post(auctionCreate, auction, (responceData) => {
+            dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+        }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
+    }
+    else {
+        dispatch({type: 'AUCTION_CREATION_FAILED'})
+    }
 }
+

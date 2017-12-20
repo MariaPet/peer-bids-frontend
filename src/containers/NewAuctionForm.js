@@ -13,7 +13,8 @@ function mapDispatchToProps(auction) {
 
 export default connect(
     (state, props) => ({
-        auction: state.auctions.newAuction
+        auction: state.auctions.newAuction,
+        currentUser: state.user.currentUser
     }),
     mapDispatchToProps
 )(NewAuctionForm);

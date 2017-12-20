@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
+import Authorization from './Authorization'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
 Form, FormGroup, Label, InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
-export default class NewAuctionForm extends Component {
+export default class NewAuctionForm extends Authorization {
     constructor(props) {
         super(props);
         this.state = {

@@ -5,8 +5,6 @@ export default class Authorization extends Component {
     
     constructor(props) {
         super(props);
-        debugger;
-        console.log(this.props)
     }
     static PropTypes = {
         routes: PropTypes.array.isRequired
@@ -21,7 +19,6 @@ export default class Authorization extends Component {
         const { router } = this.context;
 
         //check if there is current user
-        console.log('mount')
         if (!this.props.currentUser) {
             //TODO show login
             router.push("/");

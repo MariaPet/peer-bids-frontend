@@ -20,7 +20,6 @@ export const getAuctions = (dispatch, state) => {
 
 export const registerUser = (user) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING'});
-    debugger;
     var registerUser = "http://localhost:5000/signup";
     $.post(registerUser, user, (responceData) => {
         dispatch({type: 'REGISTER', user: responceData.data});
@@ -45,10 +44,25 @@ export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var token = window.localStorage.getItem("token");
     if (token) {
-        var auctionCreate = "http://localhost:5000/product";
-        $.post(auctionCreate, auction, (responceData) => {
-            dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
-        }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
+        var auctionCreate = "http://localhost:5000/api/product";
+        // $.post(auctionCreate, auction, (responceData) => {
+        //     dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+        // }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
+        $.ajax({
+            url: auctionCreate,
+            type: 'post',
+            data: auction,
+            headers: {
+                "x-access-token": token
+            },
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+            },
+            error: function() {
+                dispatch({type: 'AUCTION_CREATION_FAILED'})
+            }
+        });
     }
     else {
         dispatch({type: 'AUCTION_CREATION_FAILED'})

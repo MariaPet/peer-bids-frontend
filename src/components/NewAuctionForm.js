@@ -26,9 +26,9 @@ export default class NewAuctionForm extends Component {
         // return (<RegisterForm onInput={this.onInput} inputs={this.state} createAuction={this.props.createAuction}/>);
         return (<Form> 
             <FormGroup>
-                <Label for="ItemName">Item Name</Label>
-                <Input name="ItemName" 
-                id="ItemName" 
+                <Label for="title">Item Name</Label>
+                <Input name="title" 
+                id="title" 
                 placeholder="Enter a item name" 
                 value={this.state.title} 
                 onChange={this.onInput}/>
@@ -49,8 +49,8 @@ export default class NewAuctionForm extends Component {
                 onChange={this.onInput} />
             </FormGroup> */}
             <FormGroup>
-                <Label for="expiryDate">Expiration Date</Label>
-                <Input type="date" name="expiryDate" id="expiryDate" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
+                <Label for="expiration_date">Expiration Date</Label>
+                <Input type="date" name="expiration_date" id="expiration_date" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
                 onChange={this.onInput}/>
             </FormGroup>
             <FormGroup>
@@ -62,10 +62,10 @@ export default class NewAuctionForm extends Component {
                 </Input>
             </FormGroup>
             <FormGroup>
-            <Label for="minPrice">Maximum Price</Label>
+            <Label for="max_price">Maximum Price</Label>
             <InputGroup>
                 <InputGroupAddon>$</InputGroupAddon>
-                <Input  type="number" name = "minPrice" id = "minPrice" placeholder="Enter minimum price" step="1" value={this.state.max_price} 
+                <Input  type="number" name = "max_price" id = "max_price" placeholder="Enter minimum price" step="1" value={this.state.max_price} 
                 onChange={this.onInput}/>
             </InputGroup>
             </FormGroup>

@@ -12,6 +12,8 @@ function mapDispatchToProps(auction) {
 }
 
 export default connect(
-    (state, props) => ({auction: state.auctions.newAuction}),
+    (state, props) => ({
+        auction: state.auctions.newAuction
+    }),
     mapDispatchToProps
 )(NewAuctionForm);

@@ -6,12 +6,12 @@ export default class NewAuctionForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "",
-            description: "",
-            max_price: "",
-            status: "",
-            expiration_date: "",
-            category: ""
+            title: this.props.location.query.title,
+            description: this.props.location.query.description,
+            max_price: this.props.location.query.max_price,
+            status: this.props.location.query.status,
+            expiration_date: this.props.location.query.expiration_date,
+            category: this.props.location.query.category
         };
         this.onInput = this.onInput.bind(this);
     }

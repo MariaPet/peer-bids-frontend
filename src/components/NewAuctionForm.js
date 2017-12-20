@@ -69,7 +69,7 @@ export default class NewAuctionForm extends Component {
                 onChange={this.onInput}/>
             </InputGroup>
             </FormGroup>
-            <Button color="primary" type = "submit" onClick={(e) => this.props.createAuction(this.state)}>Create Auction</Button>
+            <Button color="primary" onClick={(e) => this.props.createAuction(this.state)}>Create Auction</Button>
           
         </Form>);
     }

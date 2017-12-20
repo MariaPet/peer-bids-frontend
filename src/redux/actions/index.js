@@ -53,6 +53,7 @@ export const createAuction = (auction) => (dispatch, state) => {
             type: 'post',
             data: auction,
             headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
                 "x-access-token": token
             },
             dataType: 'json',
@@ -60,6 +61,7 @@ export const createAuction = (auction) => (dispatch, state) => {
                 dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
             },
             error: function() {
+                console.log('error with new auction')
                 dispatch({type: 'AUCTION_CREATION_FAILED'})
             }
         });

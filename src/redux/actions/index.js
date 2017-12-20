@@ -20,6 +20,7 @@ export const getAuctions = (dispatch, state) => {
 
 export const registerUser = (user) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING'});
+    debugger;
     var registerUser = "http://localhost:5000/signup";
     $.post(registerUser, user, (responceData) => {
         dispatch({type: 'REGISTER', user: responceData.data});
@@ -27,7 +28,6 @@ export const registerUser = (user) => (dispatch, state) => {
 }
 
 export const login = (credentials) => (dispatch, state) => {
-    debugger;
     dispatch({type: 'AUTHENTICATION_LOADING'});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
@@ -38,4 +38,12 @@ export const login = (credentials) => (dispatch, state) => {
 export const logout = (dispatch, state) => {
     dispatch({type: 'LOG_OUT'});
     //delete token from local storage
+}
+
+export const createAuction = (user) => (dispatch, state) => {
+    dispatch({type: 'AUCTION_LOADING'});
+    var auctionCreate = "http://localhost:5000/product";
+    $.post(auctionCreate, user, (responceData) => {
+        dispatch({type: 'CREATE_AUCTION', user: responceData.data});
+    }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
 }

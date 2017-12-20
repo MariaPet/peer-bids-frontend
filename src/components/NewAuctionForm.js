@@ -1,42 +1,48 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
+Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 
 export default class NewAuctionForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            ItemName: "",
+            description: "",
+            minPrice: ""
+        };
+        this.onInput = this.onInput.bind(this);
+    }
+    onInput = e => {
+        let key = e.target.name;
+        let value = e.target.value;
+        let newState = {};
+        newState[key] = value;
+        this.setState(newState);
     }
     render() {
-        return (
-            <div> 
-                <div className="col-sm-12 col-sm-order-2 col-sm-offset-3 d-flex align-items-center d-flex justify-content-center" style={{height:'700px'}}>
-                    <div className="jumbotron">
-                    <h2 className="display-5 d-flex justify-content-center">Create New Auction</h2>
-                        <form>
-                            <div className="form-group col-25">
-                                <label className="col-form-label" for="formGroupItemName">Item Name</label>
-                                <input type="text" class="form-control" id="itemName" placeholder="Enter your Item Name"/>
-                            </div>
-                            <div className="form-group col-25">
-                                <label className="col-form-label" for="formGroupItemDesc">Description</label>
-                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                            <div class="form-group col-25">
-                                <label className="col-form-label" for="formGroupItemName">Price Range</label>
-                                <input type="Number" className="form-control" id="minPrice" placeholder="Enter the minimum amount"/>
-                                <input type="Number" className="form-control" id="maxPrice" placeholder="Enter the maximum amount"/>
-                            </div>
-
-                            <label className="custom-file">
-                                <input type="file" id="file2" className="custom-file-input"/>
-                                <span className="custom-file-control"></span>
-                            </label>
-                            <hr/>
-                            <div className="d-flex justify-content-center">
-                                <button type="submit" className="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>    
-            </div>
-        );
+        // return (<RegisterForm onInput={this.onInput} inputs={this.state} createAuction={this.props.createAuction}/>);
+        return (<Form> 
+            <FormGroup>
+                <Label for="ItemName">Item Name</Label>
+                <Input name="ItemName" 
+                id="ItemName" 
+                placeholder="Enter a item name" 
+                value={this.state.ItemName} 
+                onChange={this.onInput}/>
+            </FormGroup>
+            <FormGroup>
+                <Label for="description">Description</Label>
+                <Input name="description" id="description" placeholder="Enter description" value={this.state.description} 
+                onChange={this.onInput} />
+            </FormGroup>
+            <FormGroup>
+                <Label for="minPrice"> Minimum Price</Label>
+                <Input name="minPrice" id="minPrice" placeholder="Enter a minimum price" value={this.state.minPrice} 
+                onChange={this.onInput} />
+            </FormGroup>
+            <FormGroup>
+                <Button color="primary" type = "submit" onClick={this.props.createAuction(this.state)}>Create Auction</Button>
+            </FormGroup>
+        </Form>);
     }
 }

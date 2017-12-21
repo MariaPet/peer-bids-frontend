@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { browserHistory } from 'react-router'
 
 export const getApiData = (dispatch, state) => {
     dispatch({type: 'DATA_LOADING'});
@@ -23,6 +24,7 @@ export const registerUser = (user) => (dispatch, state) => {
     var registerUser = "http://localhost:5000/signup";
     $.post(registerUser, user, (responceData) => {
         dispatch({type: 'REGISTER', user: responceData.data});
+        browserHistory.push({pathname: '/', state:{showRegisterModal: false}});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
@@ -32,12 +34,14 @@ export const login = (credentials) => (dispatch, state) => {
     $.post(loginUser, credentials, (responceData) => {
         window.localStorage.setItem("token", responceData.token);
         dispatch({type: 'LOGIN', user: responceData.data});
+        browserHistory.push({pathname: '/', state:{showLoginModal: false}});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
 }
 
 export const logout = (dispatch, state) => {
     window.localStorage.removeItem("token");
     dispatch({type: 'LOG_OUT'});
+    browserHistory.push('/');
 }
 
 export const createAuction = (auction) => (dispatch, state) => {

@@ -16,6 +16,12 @@ export default class App extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.location.state) {
+        this.setState(nextProps.location.state);
+      }
+  }
+
   toggleRegisterModal() {
     this.setState({
         showRegisterModal: !this.state.showRegisterModal

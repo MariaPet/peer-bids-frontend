@@ -23,6 +23,10 @@ export default class NewAuctionForm extends Authorization {
         newState[key] = value;
         this.setState(newState);
     }
+    getDateStrNow = () => {
+        var dateToday = new Date()
+        return (dateToday.getFullYear() + "-" + (dateToday.getMonth() + 1) + "-" + dateToday.getDate())
+    }
     render() {
         // return (<RegisterForm onInput={this.onInput} inputs={this.state} createAuction={this.props.createAuction}/>);
         return (<Form> 
@@ -52,7 +56,7 @@ export default class NewAuctionForm extends Authorization {
             <FormGroup>
                 <Label for="expiration_date">Expiration Date</Label>
                 <Input type="date" name="expiration_date" id="expiration_date" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
-                onChange={this.onInput}/>
+                onChange={this.onInput} min= {this.getDateStrNow()}/>
             </FormGroup>
             <FormGroup>
                 <Label for="category">Category</Label>
@@ -75,4 +79,3 @@ export default class NewAuctionForm extends Authorization {
         </Form>);
     }
 }
-// £

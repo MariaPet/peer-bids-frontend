@@ -2,6 +2,9 @@ import React from 'react';
 import Authorization from './Authorization'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
 Form, FormGroup, Label, InputGroup, InputGroupAddon, Input } from 'reactstrap';
+import firebase from 'firebase';
+import FileUploader from 'react-firebase-file-uploader';
+import config from './config';
 
 export default class NewAuctionForm extends Authorization {
     constructor(props) {
@@ -12,7 +15,11 @@ export default class NewAuctionForm extends Authorization {
             max_price: this.props.location.query.max_price,
             status: this.props.location.query.status,
             expiration_date: this.props.location.query.expiration_date,
-            category: this.props.location.query.category
+            category: this.props.location.query.category,
+            imageName: '',
+            isUploading: false,
+            progress: 0,
+            imageURL: ''
         };
         this.onInput = this.onInput.bind(this);
     }
@@ -27,8 +34,18 @@ export default class NewAuctionForm extends Authorization {
         var dateToday = new Date()
         return (dateToday.getFullYear() + "-" + (dateToday.getMonth() + 1) + "-" + dateToday.getDate())
     }
+    handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+    handleProgress = (progress) => this.setState({progress});
+    handleUploadError = (error) => {
+      this.setState({isUploading: false});
+      console.error(error);
+    }
+    handleUploadSuccess = (filename) => {
+        this.setState({imageName: filename, progress: 100, isUploading: false});
+        firebase.storage().ref('products').child(filename).getDownloadURL().then(imageURL => 
+        this.setState({imageURL:[...this.state.imageURL, imageURL]}))
+    };
     render() {
-        // return (<RegisterForm onInput={this.onInput} inputs={this.state} createAuction={this.props.createAuction}/>);
         return (<Form> 
             <FormGroup>
                 <Label for="title">Item Name</Label>
@@ -74,8 +91,32 @@ export default class NewAuctionForm extends Authorization {
                 onChange={this.onInput}/>
             </InputGroup>
             </FormGroup>
+            <FormGroup>
+                <Label for="exampleFile">Upload Images</Label>
+                <FileUploader
+                    accept="image/*"
+                    name="imageName"
+                    multiple
+                    storageRef={firebase.storage().ref('products')}
+                    onUploadStart={this.handleUploadStart}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess}
+                    onProgress={this.handleProgress}
+                />
+            </FormGroup>
+            <FormGroup>
+                {this.state.isUploading &&
+                <p>Progress: {this.state.progress}</p>
+                }
+                {this.state.imageURL &&
+                <div>
+                <img src={this.state.imageURL} height="80" width="80"/>
+                </div>
+                }
+            </FormGroup>
+            <FormGroup>
             <Button color="primary" onClick={(e) => this.props.createAuction(this.state)}>Create Auction</Button>
-          
+            </FormGroup>
         </Form>);
     }
 }

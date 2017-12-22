@@ -12,6 +12,6 @@ function mapDispatchToProps(user) {
 }
 
 export default connect(
-    (state, props) => ({user: state.user}),
+    (state, props) => ({loading: state.user.loading}),
     mapDispatchToProps
 )(RegisterModal);

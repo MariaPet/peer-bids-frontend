@@ -28,8 +28,8 @@ export default class LoginModal extends Component {
                     <LoginForm onInput={this.onInput} inputs={this.state} />
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={(e) => this.props.loginUser(this.state)}>Login</Button>{' '}
-                    <Button color="secondary" onClick={this.props.toggleModal}>Cancel</Button>
+                    <Button color="primary" disabled={this.props.loading} onClick={(e) => this.props.loginUser(this.state) } >Login</Button>{' '}
+                    <Button color="secondary" disabled={this.props.loading} onClick={this.props.toggleModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         );

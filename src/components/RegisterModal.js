@@ -32,8 +32,8 @@ export default class RegisterModal extends Component {
                     <RegisterForm onInput={this.onInput} inputs={this.state}/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={(e) => this.props.registerUser(this.state)}>Register</Button>{' '}
-                    <Button color="secondary" onClick={this.props.toggleModal}>Cancel</Button>
+                    <Button color="primary" disabled={this.props.loading} onClick={(e) => this.props.registerUser(this.state)}>Register</Button>{' '}
+                    <Button color="secondary" disabled={this.props.loading} onClick={this.props.toggleModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         );

@@ -25,12 +25,12 @@ export const getAuctions = (dispatch, state) => {
 }
 
 export const registerUser = (user) => (dispatch, state) => {
-    dispatch({type: 'AUTHENTICATION_LOADING'});
+    dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var registerUser = "http://localhost:5000/signup";
     $.post(registerUser, user, (responceData) => {
-        dispatch({type: 'REGISTER', user: responceData.data});
+        dispatch({type: 'REGISTER', user: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showRegisterModal: false}});
-    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
+    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 
 export const login = (credentials) => (dispatch, state) => {

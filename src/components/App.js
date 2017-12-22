@@ -3,6 +3,10 @@ import NavBar from '../containers/NavBar';
 import RegisterModal from '../containers/RegisterModal';
 import LoginModal from '../containers/LoginModal';
 import { Link, browserHistory } from 'react-router'
+import {
+  Spinner
+} from 'react-redux-spinner';
+import '../styles/spinner.css'
 
 
 export default class App extends Component {
@@ -44,6 +48,12 @@ export default class App extends Component {
           />
         </header>
         <div>
+          <Spinner>
+            <div id="nprogress">
+              <div className="spinner" role="spinner">
+              </div>
+            </div>
+          </Spinner>
           {this.props.children}
         </div>
         <RegisterModal

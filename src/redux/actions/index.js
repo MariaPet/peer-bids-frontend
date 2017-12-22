@@ -1,5 +1,10 @@
 import $ from 'jquery'
 import { browserHistory } from 'react-router'
+import {
+    pendingTask, // The action key for modifying loading state
+    begin, // The action value if a "long" running task begun
+    end // The action value if a "long" running task ended
+  } from 'react-redux-spinner';
 
 export const getApiData = (dispatch, state) => {
     dispatch({type: 'DATA_LOADING'});
@@ -29,13 +34,13 @@ export const registerUser = (user) => (dispatch, state) => {
 }
 
 export const login = (credentials) => (dispatch, state) => {
-    dispatch({type: 'AUTHENTICATION_LOADING'});
+    dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
         window.localStorage.setItem("token", responceData.token);
-        dispatch({type: 'LOGIN', user: responceData.data});
+        dispatch({type: 'LOGIN', user: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showLoginModal: false}});
-    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED'}));
+    }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 
 export const logout = (dispatch, state) => {

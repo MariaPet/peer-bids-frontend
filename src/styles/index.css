@@ -1,3 +1,8 @@
 body {
     padding-top: 56px;
 }
+
+.pac-container {
+    z-index: 1070 !important;
+    background-color: white;
+}

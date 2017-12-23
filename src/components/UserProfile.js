@@ -17,7 +17,7 @@ export default class UserProfile extends Authorization {
             tab: "Bids"
         }
         this.showTab = this.showTab.bind(this);
-    }
+    } 
     showTab = tabName => e => {
         e.preventDefault();
         this.setState(

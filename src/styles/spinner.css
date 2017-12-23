@@ -1,6 +1,11 @@
 @import '~react-redux-spinner/dist/react-redux-spinner.css';
 
-.spinner {
+#nprogress .spinner {
+    top: 150px;
+    right: 0px;
+    left: 0px;
+    margin: 0 auto;
+    z-index: 103100;
     color: #00fff2a8;
     font-size: 90px;
     text-indent: -9999em;
@@ -15,6 +20,11 @@
     -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
     animation: load6 1.7s infinite ease, round 1.7s infinite ease;
   }
+
+  #nprogress .spinner-icon {
+    display: none;
+  }
+  
   @-webkit-keyframes load6 {
     0% {
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;

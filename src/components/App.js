@@ -20,6 +20,10 @@ export default class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.refreshToken();
+  }
+
   componentWillReceiveProps(nextProps) {
       if (nextProps.location.state) {
         this.setState(nextProps.location.state);

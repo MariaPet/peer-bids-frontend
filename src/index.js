@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import App from './containers/App';
 import MapView from './components/MapView';
 import UserProfile from './containers/UserProfile'
 import NewAuctionForm from './containers/NewAuctionForm'

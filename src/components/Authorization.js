@@ -17,10 +17,8 @@ export default class Authorization extends Component {
     componentWillMount() {
         const { routes } = this.props;
         const { router } = this.context;
-
         //check if there is current user
         if (!this.props.currentUser) {
-            //TODO show login
             router.push({pathname: '/', state:{showLoginModal: true}});
         }
     }

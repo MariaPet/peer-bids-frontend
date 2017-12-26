@@ -37,21 +37,47 @@ export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
-        window.localStorage.setItem("token", responceData.token);
-        dispatch({type: 'LOGIN', user: responceData.data, [ pendingTask ]: end});
+        window.localStorage.setItem("idToken", responceData.data.idToken);
+        window.localStorage.setItem("refreshToken", responceData.data.refreshToken);
+        window.localStorage.setItem("userId", responceData.data.localId);
+        dispatch({type: 'LOGIN', user: responceData.user, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showLoginModal: false}});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 
+export const refreshToken = (dispatch, state) => {
+    dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
+    let refreshTokenUrl = "http://localhost:5000/refresh";
+    let refreshToken = window.localStorage.getItem("refreshToken");
+    if (refreshToken) {
+        $.post(refreshTokenUrl, {refreshToken}, (responceData) => {
+                window.localStorage.setItem("idToken", responceData.data.idToken);
+                window.localStorage.setItem("refreshToken", responceData.data.refreshToken);
+                window.localStorage.setItem("userId", responceData.data.userId);
+                dispatch({type: 'REFRESH_TOKEN', user: responceData.user, [ pendingTask ]: end})
+                console.log("success refresh token");
+            },
+            "json"
+        ).fail(() => {
+            dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+            console.log("error refresh token");
+        });
+    }
+    else {
+        console.log("no refresh token");
+        dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+    }
+}
+
 export const logout = (dispatch, state) => {
-    window.localStorage.removeItem("token");
+    localStorage.clear();
     dispatch({type: 'LOG_OUT'});
     browserHistory.push('/');
 }
 
 export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
-    var token = window.localStorage.getItem("token");
+    var token = window.localStorage.getItem("idToken");
     if (token) {
         var auctionCreate = "http://localhost:5000/api/product";
         $.ajax({

@@ -23,6 +23,12 @@ export default function user(state = {currentUser: null, loading: false}, action
             return {...state,
                 currentUser: null,
                 loading: false,
+                token: null
+            }
+        case 'REFRESH_TOKEN':
+            return {...state,
+                currentUser: action.user,
+                loading: false
             }
         default:
             return state;

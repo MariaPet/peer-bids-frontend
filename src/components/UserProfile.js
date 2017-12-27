@@ -60,12 +60,17 @@ export default class UserProfile extends Authorization {
                         <Card className="mb-2">
                             <CardHeader>Personal Information</CardHeader>
                             <CardBody>
+                            {this.props.currentUser ? 
                                 <CardText>
                                     Username: {this.props.currentUser.username} <br />
                                     Email: {this.props.currentUser.email} <br />
                                     Telephone: {this.props.currentUser.telephone} <br />
                                     Address: {this.props.currentUser.street}, {this.props.currentUser.city}, {this.props.currentUser.postal_code} <br />
                                 </CardText>
+                            :
+                                <CardText>
+                                </CardText>
+                            }
                             </CardBody>
                         </Card>
                     </Col>

@@ -12,8 +12,9 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import FrontSearch from './containers/FrontSearch';
+import {refreshToken} from './redux/actions/index';
 
-
+store.dispatch(refreshToken);
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 

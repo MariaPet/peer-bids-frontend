@@ -26,7 +26,6 @@ import {Link} from 'react-router'
                 isOpen: !this.state.isOpen
             });
         }
-        
         render() {
             let links = null;
             if (this.props.currentUser) {

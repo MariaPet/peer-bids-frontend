@@ -41,6 +41,7 @@ export default class RegisterModal extends Component {
         geocodeByAddress(address)
         .then(results => {
             getLatLng(results[0]).then((data) => {
+                //TODO check if there are cases without lat lng
                 var newInputs = {...this.state.inputs};
                 newInputs.latitude = data.lat;
                 newInputs.longitude = data.lng;

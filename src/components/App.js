@@ -20,10 +20,6 @@ export default class App extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.refreshToken();
-  }
-
   componentWillReceiveProps(nextProps) {
       if (nextProps.location.state) {
         this.setState(nextProps.location.state);
@@ -51,19 +47,25 @@ export default class App extends Component {
           toggleLoginModal={this.toggleLoginModal}
           />
         </header>
+        {/*User auth spinner*/}
         <div>
-          <Spinner>
+          {this.props.loading ? (
+          <div>
+              <div className="spinner" role="spinner">
+              </div>
+          </div>) : this.props.children}
+        </div>
+        {/*Global spinner*/}
+        <Spinner>
             <div id="nprogress">
               <div className="spinner" role="spinner">
               </div>
             </div>
           </Spinner>
-          {this.props.children}
-        </div>
         <RegisterModal
-         modal={this.state.showRegisterModal} 
-         toggleModal={this.toggleRegisterModal}
-         />
+        modal={this.state.showRegisterModal} 
+        toggleModal={this.toggleRegisterModal}
+        />
         <LoginModal 
         modal={this.state.showLoginModal} 
         toggleModal={this.toggleLoginModal} 

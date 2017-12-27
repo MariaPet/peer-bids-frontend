@@ -1,6 +1,7 @@
 @import '~react-redux-spinner/dist/react-redux-spinner.css';
 
-#nprogress .spinner {
+.spinner {
+    position: fixed;
     top: 150px;
     right: 0px;
     left: 0px;

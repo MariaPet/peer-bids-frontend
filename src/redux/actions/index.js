@@ -71,13 +71,13 @@ export const createAuction = (auction) => (dispatch, state) => {
     }
 }
 
-export const realtimeBid = (dispatch, state) => {
+export const realtimeBid = (bid_value)=> (dispatch, state) => {
     dispatch({type: 'BID_LOADING'});
     var token = window.localStorage.getItem("token");
     if (token) {
-        var getAuctions = "http://localhost:5000//api/realtime_bid/<p_id>'";
-        $ajax({
-            url: realtimeBidCreate,
+        var addBid = "http://localhost:5000//api/realtime_bid/<p_id>'";
+        $.ajax({
+            url: addBid,
             type: 'post',
             data: bid_value,
             headers: {

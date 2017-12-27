@@ -55,16 +55,13 @@ export const refreshToken = (dispatch, state) => {
                 window.localStorage.setItem("refreshToken", responceData.data.refreshToken);
                 window.localStorage.setItem("userId", responceData.data.userId);
                 dispatch({type: 'REFRESH_TOKEN', user: responceData.user, [ pendingTask ]: end})
-                console.log("success refresh token");
             },
             "json"
         ).fail(() => {
             dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
-            console.log("error refresh token");
         });
     }
     else {
-        console.log("no refresh token");
         dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
     }
 }
@@ -73,6 +70,30 @@ export const logout = (dispatch, state) => {
     localStorage.clear();
     dispatch({type: 'LOG_OUT'});
     browserHistory.push('/');
+}
+
+export const uploadImage = (image) => (dispatch, state) => {
+    var token = window.localStorage.getItem("idToken");
+    if (token) {
+        var auctionCreate = "http://localhost:5000/upload";
+        $.ajax({
+            url: auctionCreate,
+            type: 'post',
+            data: {},
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "x-access-token": token
+            },
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+            },
+            error: function() {
+                console.log('error with new auction')
+                dispatch({type: 'AUCTION_CREATION_FAILED'})
+            }
+        });
+    }
 }
 
 export const createAuction = (auction) => (dispatch, state) => {

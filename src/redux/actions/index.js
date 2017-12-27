@@ -71,3 +71,32 @@ export const createAuction = (auction) => (dispatch, state) => {
     }
 }
 
+export const realtimeBid = (dispatch, state) => {
+    dispatch({type: 'BID_LOADING'});
+    var token = window.localStorage.getItem("token");
+    if (token) {
+        var getAuctions = "http://localhost:5000//api/realtime_bid/<p_id>'";
+        $ajax({
+            url: realtimeBidCreate,
+            type: 'post',
+            data: bid_value,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "x-access-token": token
+            },
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+            },
+            error: function() {
+                console.log('error with new bid')
+                dispatch({type: 'BID_ADDING_FAILED'})
+            }
+        });  
+    }
+    else {
+        dispatch({type: 'BID_ADDING_FAILED'})
+    }
+}
+
+   

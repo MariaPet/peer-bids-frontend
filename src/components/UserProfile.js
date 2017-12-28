@@ -24,20 +24,16 @@ export default class UserProfile extends Authorization {
     }
     showTab = tabName => e => {
         e.preventDefault();
-        this.setState(
-            {
-                tab: tabName
-            }
-        );
+        this.setState({tab: tabName});
     }
-    onDrop(picture) {
-        this.setState({picture});
+    onDrop = picture => {
+        this.setState({picture: picture[0]});
     }
     render() {
         return (
             <Row>
                 <Col xs="12" md="4" className="d-flex flex-column align-items-center py-4">
-                    <img src={noUserImage} alt="Profile Image" className="rounded-circle" />
+                    <img src={this.props.currentUser.profileImg?this.props.currentUser.profileImg:noUserImage} alt="Profile Image" className="rounded-circle" />
                     <span>Name Surname</span>
                 </Col>
                 <Col xs="12" md="8" className="py-4">
@@ -50,7 +46,7 @@ export default class UserProfile extends Authorization {
                             withPreview={false}
                             withIcon={false}
                             buttonText='Select profile pic'
-                            onChange={this.onDrop}
+                            onChange={(file) => this.onDrop(file)}
                             imgExtension={['.jpg', '.gif', '.png', '.gif']}
                             maxFileSize={5242880}
                             label=""

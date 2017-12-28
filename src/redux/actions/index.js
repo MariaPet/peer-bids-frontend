@@ -37,10 +37,8 @@ export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
-        window.localStorage.setItem("idToken", responceData.data.idToken);
-        window.localStorage.setItem("refreshToken", responceData.data.refreshToken);
-        window.localStorage.setItem("userId", responceData.data.localId);
-        dispatch({type: 'LOGIN', user: responceData.user, [ pendingTask ]: end});
+        window.localStorage.setItem("idToken", responceData.token);
+        dispatch({type: 'LOGIN', user: responceData.data.claims, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showLoginModal: false}});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
@@ -48,13 +46,11 @@ export const login = (credentials) => (dispatch, state) => {
 export const refreshToken = (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     let refreshTokenUrl = "http://localhost:5000/refresh";
-    let refreshToken = window.localStorage.getItem("refreshToken");
+    let refreshToken = window.localStorage.getItem("idToken");
     if (refreshToken) {
         $.post(refreshTokenUrl, {refreshToken}, (responceData) => {
-                window.localStorage.setItem("idToken", responceData.data.idToken);
-                window.localStorage.setItem("refreshToken", responceData.data.refreshToken);
-                window.localStorage.setItem("userId", responceData.data.userId);
-                dispatch({type: 'REFRESH_TOKEN', user: responceData.user, [ pendingTask ]: end})
+                window.localStorage.setItem("idToken", responceData.token);
+                dispatch({type: 'REFRESH_TOKEN', user: responceData.data, [ pendingTask ]: end})
             },
             "json"
         ).fail(() => {
@@ -72,25 +68,30 @@ export const logout = (dispatch, state) => {
     browserHistory.push('/');
 }
 
-export const uploadImage = (image) => (dispatch, state) => {
+export const uploadImage = (picture) => (dispatch, state) => {
+    dispatch({type: 'UPLOAD_FILE_LOADING'});
     var token = window.localStorage.getItem("idToken");
+    var formData = new FormData();
+    formData.append('profilePic', picture);
     if (token) {
-        var auctionCreate = "http://localhost:5000/upload";
+        var uploadUrl = "http://localhost:5000/upload";
         $.ajax({
-            url: auctionCreate,
+            url: uploadUrl,
             type: 'post',
-            data: {},
+            data: formData,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 "x-access-token": token
             },
             dataType: 'json',
             success: function (responceData) {
-                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+                dispatch({type: 'UPLOAD_FILE', auction: responceData.data});
             },
             error: function() {
                 console.log('error with new auction')
-                dispatch({type: 'AUCTION_CREATION_FAILED'})
+                dispatch({type: 'UPLOAD_FILE_FAILED'})
             }
         });
     }

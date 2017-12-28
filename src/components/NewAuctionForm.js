@@ -34,7 +34,7 @@ export default class NewAuctionForm extends Authorization {
                 <Label for="title">Item Name</Label>
                 <Input name="title" 
                 id="title" 
-                placeholder="Enter a item name" 
+                placeholder="Enter an item name" 
                 value={this.state.title} 
                 onChange={this.onInput}/>
             </FormGroup>

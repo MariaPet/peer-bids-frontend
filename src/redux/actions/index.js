@@ -90,7 +90,6 @@ export const uploadImage = (picture) => (dispatch, state) => {
                 dispatch({type: 'UPLOAD_FILE', auction: responceData.data});
             },
             error: function() {
-                console.log('error with new auction')
                 dispatch({type: 'UPLOAD_FILE_FAILED'})
             }
         });

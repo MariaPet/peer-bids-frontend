@@ -16,7 +16,7 @@ export default class NewAuctionForm extends Authorization {
         this.state = {
             title: "",
             description: "",
-            max_price: "",
+            initial_price: "",
             status: "",
             expiration_date: "",
             category: ""
@@ -85,10 +85,10 @@ export default class NewAuctionForm extends Authorization {
                         </Input>
                     </FormGroup>
                     <FormGroup>
-                    <Label for="max_price">Maximum Price</Label>
+                    <Label for="initial_price">Initial Price</Label>
                     <InputGroup>
                         <InputGroupAddon>$</InputGroupAddon>
-                        <Input  type="number" name = "max_price" id = "max_price" placeholder="Enter minimum price" step="1" value={this.state.max_price} 
+                        <Input  type="number" name = "initial_price" id = "initial_price" placeholder="Enter the starting price" step="1" value={this.state.initial_price} 
                         onChange={this.onInput}/>
                     </InputGroup>
                     </FormGroup>

@@ -19,8 +19,9 @@ export const getApiData = (dispatch, state) => {
 export const getAuctions = (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var getAuctions = "http://localhost:5000/api/product";
-    $.getJSON(getAuctions).done(data => {
-        dispatch({type: 'GET_AUCTIONS', auctions: data});
+    $.getJSON(getAuctions).done(responceData => {
+        dispatch({type: 'GET_AUCTIONS', auctions: responceData.data});
+        browserHistory.push({pathname: '/map'});
     })
 }
 

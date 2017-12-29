@@ -3,7 +3,7 @@ import './styles/index.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
-import MapView from './components/MapView';
+import MapView from './containers/MapView';
 import UserProfile from './containers/UserProfile'
 import NewAuctionForm from './containers/NewAuctionForm'
 import registerServiceWorker from './registerServiceWorker';

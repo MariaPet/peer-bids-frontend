@@ -11,20 +11,35 @@ export default class MapView extends Component {
             center: {lat: 50.9, lng: -1.4},
             zoom: 13
         });
-        //Initialize markers
-        let marker = new window.google.maps.Marker({
-            map,
-            position: {lat: 50.9, lng: -1.4}
-        });
-        marker.addListener('click', () => {
-            //Open slider with info
-            $('.transform-slider').toggleClass('slide-in');
-        });
+        this.setState({map});
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        //Initialize markers
+        if (nextProps.auctions) {
+            var auctions = nextProps.auctions;
+            for (var auction in auctions) {
+                if (auctions.hasOwnProperty(auction)) {
+                    if(auctions[auction].owner && auctions[auction].owner.latitude && auctions[auction].owner.longitude) {
+                        let marker = new window.google.maps.Marker({
+                            map: nextState.map,
+                            position: {lat: parseFloat(auctions[auction].owner.latitude), lng: parseFloat(auctions[auction].owner.longitude)}
+                        });
+                        marker.addListener('click', () => {
+                            $('.transform-slider').toggleClass('slide-in');
+                        });
+                    }           
+                }
+            }
+        }
+        
+    }
+    
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            map: null
+        }
     }
 
     render() {

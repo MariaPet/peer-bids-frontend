@@ -1,5 +1,4 @@
-
-import realtimeBid from '../components/RealtimeBid';
+import RealtimeBid from '../components/RealtimeBid';
 import { connect } from 'react-redux';
 import { realtimeBid } from '../redux/actions/index';
 
@@ -16,4 +15,4 @@ export default connect(
         bid_value: state.bid
     }),
     mapDispatchToProps
-)(realtimeBid);
+)(RealtimeBid);

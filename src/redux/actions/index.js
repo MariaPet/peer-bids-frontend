@@ -75,7 +75,7 @@ export const realtimeBid = (bid_value)=> (dispatch, state) => {
     dispatch({type: 'BID_LOADING'});
     var token = window.localStorage.getItem("token");
     if (token) {
-        var addBid = "http://localhost:5000//api/realtime_bid/<p_id>'";
+        var addBid = "http://localhost:5000/api/realtime_bid/<p_id>'";
         $.ajax({
             url: addBid,
             type: 'post',

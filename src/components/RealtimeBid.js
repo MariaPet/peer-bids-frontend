@@ -16,20 +16,17 @@ class RealtimeBid extends Component {
         super(props);
         this.state = { bid_value: "" };
         this.onSpeech = this.onSpeech.bind(this);
-    } 
-    
-    // console.log(this.props.match.params.auction);
-    
+    }     
+    // console.log(this.props.match.params.auction);    
     onSpeech= function(event) {
         event.stopPropagation();
         this.setState({bid_value: event.target.value});
-        // this.props.realtimeBid("83");
-        // this.props.RealtimeBid(this.state.bid_value)       
+        this.props.realtimeBid("83");
+        // this.props.realtimeBid(this.state.bid_value)       
     }
 
     render() {
-        const { transcript, resetTranscript, browserSupportsSpeechRecognition, recognition } = this.props
-        
+        const { transcript, resetTranscript, browserSupportsSpeechRecognition, recognition } = this.props        
         recognition.lang = 'en-US'
         recognition.interimResults = false;
         if (!browserSupportsSpeechRecognition) {
@@ -38,7 +35,7 @@ class RealtimeBid extends Component {
         return (
         <div>            
             <Button onClick={resetTranscript}>Reset</Button>
-            <Input type="text" name="bid_value" id="bid_value" value= {transcript} onChange={this.onSpeech.bind(this)} />
+            <Input type="text" name="bid_value" id="bid_value" value= {transcript} onChange = { this.onSpeech } />
             <p>{this.state.bid_value}</p>           
         </div>
         )

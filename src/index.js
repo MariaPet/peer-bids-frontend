@@ -6,7 +6,7 @@ import App from './components/App';
 import MapView from './components/MapView';
 import UserProfile from './components/UserProfile'
 import NewAuctionForm from './containers/NewAuctionForm'
-import RealtimeBid from './components/RealtimeBid'
+import RealtimeBid from './containers/RealtimeBid'
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'

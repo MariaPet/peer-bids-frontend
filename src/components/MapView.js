@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { browserHistory } from 'react-router'
 import '../styles/mapview.css'
 import {Row, Col} from 'reactstrap'
 import $ from 'jquery'; 
@@ -15,8 +16,8 @@ export default class MapView extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        //Initialize markers
-        if (nextProps.auctions) {
+        //Initialize density circles
+        if (nextProps.auctions != false) {
             var users = nextProps.auctions;
             var latLngSet = []
             for (var user in users) {
@@ -39,9 +40,16 @@ export default class MapView extends Component {
                 } 
             }
         }
-        
+        else {
+            browserHistory.push({pathname: '/'});
+        }  
     }
-    
+    componentWillReceiveProps(nextProps) {
+        debugger;
+        if (nextProps.location !== this.props.location) {
+            this.setState({ prevPath: this.props.location })
+        }
+    }
     constructor(props) {
         super(props);
         var latLngSet = new Set(null, function (a, b) {

@@ -17,19 +17,26 @@ export default class MapView extends Component {
     componentWillUpdate(nextProps, nextState) {
         //Initialize markers
         if (nextProps.auctions) {
-            var auctions = nextProps.auctions;
-            for (var auction in auctions) {
-                if (auctions.hasOwnProperty(auction)) {
-                    if(auctions[auction].owner && auctions[auction].owner.latitude && auctions[auction].owner.longitude) {
-                        let marker = new window.google.maps.Marker({
+            var users = nextProps.auctions;
+            var latLngSet = []
+            for (var user in users) {
+                if (users[user].auctions) {
+                    if(users[user].latitude && users[user].longitude) {
+                        var auctionDensity = new window.google.maps.Circle({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
                             map: nextState.map,
-                            position: {lat: parseFloat(auctions[auction].owner.latitude), lng: parseFloat(auctions[auction].owner.longitude)}
-                        });
-                        marker.addListener('click', () => {
+                            center: {lat: parseFloat(users[user].latitude), lng: parseFloat(users[user].longitude)},
+                            radius: Math.sqrt(Object.keys(users[user].auctions).length) * 80
+                          });
+                          auctionDensity.addListener('click', () => {
                             $('.transform-slider').toggleClass('slide-in');
                         });
                     }           
-                }
+                } 
             }
         }
         
@@ -37,8 +44,12 @@ export default class MapView extends Component {
     
     constructor(props) {
         super(props);
+        var latLngSet = new Set(null, function (a, b) {
+            return a.lat === b.lat && a.lng === b.lng;
+        });
         this.state = {
-            map: null
+            map: null,
+            latLngSet: []
         }
     }
 

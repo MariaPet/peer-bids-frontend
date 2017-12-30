@@ -26,17 +26,22 @@ export default class MapView extends Component {
     }
     render() {
         return (
-            <div id="mapView">
-            <Map 
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDs0MlMr1jwchsHIjMqdl0hvFy5Prio_k&libraries=places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div id="map" />}
-                mapElement={<div style={{ height: `100%` }} />}
-                users={this.props.auctions}
-                updatePreview={this.updatePreview}
-            />
-            <AuctionPreview user={this.state.previewedAuctions}/>
-            </div>
+            <Row>
+                <Col xs="12" md="4">
+                    <AuctionPreview user={this.state.previewedAuctions}/>
+                </Col>
+                <Col xs="12" md="8">
+                    <Map 
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDs0MlMr1jwchsHIjMqdl0hvFy5Prio_k&libraries=places"
+                        loadingElement={<div style={{ height: '100%' }} />}
+                        containerElement={<div id="map" />}
+                        mapElement={<div style={{ height: '100%' }} />}
+                        users={this.props.auctions}
+                        updatePreview={this.updatePreview}
+                    />
+                </Col>
+                
+            </Row>
             
         );
     }
@@ -82,19 +87,24 @@ class AuctionPreview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: ""
+            username: "Click on a circle to preview auction information"
         }
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.user) {
             this.setState({username: nextProps.user.username});
         }
+        else {
+            this.setState({username: "Click on a circle to preview auction information"});
+        }
     }
     render() {
         return (
-            <div id="auctionPreview" className="transform-slider" style={{height: "400px", width: "30%", background: "blue", position:"absolute", bottom: "-100%"}}>
-                <h1>{this.state.username}</h1>
-            </div>
+            <Row id="auctionPreview" className="transform-slider pt-3">
+                <Col xs="12">
+                    <h1>{this.state.username}</h1>
+                </Col>
+            </Row>
         )
     }
 }

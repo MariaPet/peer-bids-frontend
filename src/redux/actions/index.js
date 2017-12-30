@@ -17,11 +17,12 @@ export const getApiData = (dispatch, state) => {
 }
 
 export const getAuctions = (dispatch, state) => {
-    dispatch({type: 'AUCTIONS_LOADING'});
+    dispatch({type: 'AUCTIONS_LOADING', [ pendingTask ]: begin});
     var getAuctions = "http://localhost:5000/api/product";
-    $.getJSON(getAuctions).done(data => {
-        dispatch({type: 'GET_AUCTIONS', auctions: data});
-    })
+    $.getJSON(getAuctions).done(responceData => {
+        dispatch({type: 'GET_AUCTIONS', auctions: responceData.data, [ pendingTask ]: end});
+        browserHistory.push({pathname: '/map'});
+    }).fail(() => {dispatch({type: 'GET_AUCTIONS_FAILED', [ pendingTask ]: end})});
 }
 
 export const registerUser = (user) => (dispatch, state) => {
@@ -37,21 +38,68 @@ export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var loginUser = "http://localhost:5000/login";
     $.post(loginUser, credentials, (responceData) => {
-        window.localStorage.setItem("token", responceData.token);
-        dispatch({type: 'LOGIN', user: responceData.data, [ pendingTask ]: end});
+        window.localStorage.setItem("idToken", responceData.token);
+        dispatch({type: 'LOGIN', user: responceData.data.claims, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showLoginModal: false}});
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 
+export const refreshToken = (dispatch, state) => {
+    dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
+    let refreshTokenUrl = "http://localhost:5000/refresh";
+    let refreshToken = window.localStorage.getItem("idToken");
+    if (refreshToken) {
+        $.post(refreshTokenUrl, {refreshToken}, (responceData) => {
+                window.localStorage.setItem("idToken", responceData.token);
+                dispatch({type: 'REFRESH_TOKEN', user: responceData.data, [ pendingTask ]: end})
+            },
+            "json"
+        ).fail(() => {
+            dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+        });
+    }
+    else {
+        dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+    }
+}
+
 export const logout = (dispatch, state) => {
-    window.localStorage.removeItem("token");
+    localStorage.clear();
     dispatch({type: 'LOG_OUT'});
     browserHistory.push('/');
 }
 
+export const uploadImage = (picture) => (dispatch, state) => {
+    dispatch({type: 'UPLOAD_FILE_LOADING'});
+    var token = window.localStorage.getItem("idToken");
+    var formData = new FormData();
+    formData.append('profilePic', picture);
+    if (token) {
+        var uploadUrl = "http://localhost:5000/upload";
+        $.ajax({
+            url: uploadUrl,
+            type: 'post',
+            data: formData,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            headers: {
+                "x-access-token": token
+            },
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'UPLOAD_FILE', auction: responceData.data});
+            },
+            error: function() {
+                dispatch({type: 'UPLOAD_FILE_FAILED'})
+            }
+        });
+    }
+}
+
 export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
-    var token = window.localStorage.getItem("token");
+    var token = window.localStorage.getItem("idToken");
     if (token) {
         var auctionCreate = "http://localhost:5000/api/product";
         $.ajax({
@@ -77,3 +125,32 @@ export const createAuction = (auction) => (dispatch, state) => {
     }
 }
 
+export const realtimeBid = (bid_value)=> (dispatch, state) => {
+    dispatch({type: 'BID_LOADING'});
+    var token = window.localStorage.getItem("token");
+    if (token) {
+        var addBid = "http://localhost:5000/api/realtime_bid/<p_id>'";
+        $.ajax({
+            url: addBid,
+            type: 'post',
+            data: bid_value,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "x-access-token": token
+            },
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+            },
+            error: function() {
+                console.log('error with new bid')
+                dispatch({type: 'BID_ADDING_FAILED'})
+            }
+        });  
+    }
+    else {
+        dispatch({type: 'BID_ADDING_FAILED'})
+    }
+}
+
+   

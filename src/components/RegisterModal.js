@@ -17,6 +17,8 @@ export default class RegisterModal extends Component {
                 streetNo: "",
                 city: "",
                 postal_code: "",
+                latitude: "",
+                longitude: "",
                 telephone: ""
             },
             searchInput: ""
@@ -38,6 +40,13 @@ export default class RegisterModal extends Component {
     handleSelect = (address, placeId) => {
         geocodeByAddress(address)
         .then(results => {
+            getLatLng(results[0]).then((data) => {
+                //TODO check if there are cases without lat lng
+                var newInputs = {...this.state.inputs};
+                newInputs.latitude = data.lat;
+                newInputs.longitude = data.lng;
+                this.setState({inputs: newInputs});
+            });
             Array.prototype.forEach.call(results[0].address_components, element => {
                 if (element.types.includes("postal_code")) {
                     var newInputs = {...this.state.inputs};

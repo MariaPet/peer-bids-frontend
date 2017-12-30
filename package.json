@@ -9,6 +9,7 @@
     "jquery": "^3.2.1",
     "npm": "^5.5.1",
     "react": "^16.2.0",
+    "react-countdown-now": "^1.2.0",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.3",
     "react-images-upload": "^1.1.1",

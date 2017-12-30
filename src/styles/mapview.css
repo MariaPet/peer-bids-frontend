@@ -13,3 +13,14 @@
     transition: left 2s ease;
 }
 
+.clock-element {
+    min-width: 52px;
+    min-height: 52px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 3px solid #8b29a8c0;
+    margin: 2px 5px;
+}
+

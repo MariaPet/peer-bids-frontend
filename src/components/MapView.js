@@ -4,11 +4,11 @@ import '../styles/mapview.css'
 import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap'
 import $ from 'jquery'; 
 import { GoogleMap, Circle , Marker, HeatmapLayer, withScriptjs, withGoogleMap } from "react-google-maps"
-import { MAP } from 'react-google-maps/lib/constants'
+import Countdown from 'react-countdown-now';
 
 export default class MapView extends Component {
     componentDidMount() {
-        if (this.props.auctions == false) browserHistory.push({pathname: '/'});
+        if (!this.props.auctions) browserHistory.push({pathname: '/'});
     }
 
     constructor(props) {
@@ -121,11 +121,33 @@ class AuctionItem extends Component {
         super(props);
     }
     render() {
+        const renderer = ({ hours, minutes, seconds, completed }) => {
+            if (completed) {
+              // Render a completed state 
+              return <span>BOOM</span>;
+            } else {
+              // Render a countdown 
+              return (
+              <span className='d-flex justify-content-end'>
+                <span className="d-flex flex-column">
+                    <span>Hours</span><span className="rounded-circle clock-element">{hours}</span>
+                </span>
+                <span className="d-flex flex-column">
+                    <span>Minutes</span><span className="rounded-circle clock-element">{minutes}</span>
+                </span>
+                <span className="d-flex flex-column">
+                    <span>Seconds</span><span className="rounded-circle clock-element">{seconds}</span>
+                </span>
+              </span>);
+            }
+        };
         return(
             <ListGroupItem>
                 <ListGroupItemHeading>{this.props.auction.title}</ListGroupItemHeading>
                 <ListGroupItemText>
-                    {this.props.auction.description}
+                    {this.props.auction.description}<br />
+                    {this.props.auction.min_price}<br />
+                    <Countdown date={this.props.auction.expiration_date * 1000} renderer={renderer} />
                 </ListGroupItemText>
             </ListGroupItem>
         );

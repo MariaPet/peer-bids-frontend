@@ -40,6 +40,19 @@ export default class App extends Component {
 
   render() {
     return (
+// export default function App({children}) {
+//   return (
+//     <div>
+//       <header>
+//         <h1>Peer bids</h1>
+//         Links:
+//         {' '}
+//         <Link to="/">Home</Link>
+//         {' '}
+//         <Link to="/test">test</Link>
+// 	    	{' '}
+// 		    <Link to="/signUp">SingUp</Link>
+//       </header>
       <div>
         <header>
           <NavBar 

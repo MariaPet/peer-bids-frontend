@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import SpeechRecognition from 'react-speech-recognition'
-import { Button, Form, Input} from 'reactstrap';
-import { realtimeBid } from '../redux/actions/index'
+import { Button, Input} from 'reactstrap';
+//import { realtimeBid } from '../redux/actions/index'
 
 const propTypes = {
     transcript: PropTypes.string,

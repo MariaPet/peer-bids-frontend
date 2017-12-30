@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types'
 
 export default class Authorization extends Component {
     
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    }*/
     static PropTypes = {
         routes: PropTypes.array.isRequired
     };
@@ -15,7 +15,7 @@ export default class Authorization extends Component {
     };
 
     componentWillMount() {
-        const { routes } = this.props;
+        //const { routes } = this.props;
         const { router } = this.context;
         //check if there is current user
         if (!this.props.currentUser) {

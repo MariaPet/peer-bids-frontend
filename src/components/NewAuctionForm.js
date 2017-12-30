@@ -1,6 +1,6 @@
 import React from 'react';
 import Authorization from './Authorization'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
+import { Button,
 Form, FormGroup, Label, InputGroup, InputGroupAddon, Input, FormText, Row, Col } from 'reactstrap';
 
 export default class NewAuctionForm extends Authorization {

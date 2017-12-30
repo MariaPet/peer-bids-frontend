@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import { browserHistory } from 'react-router'
 import '../styles/mapview.css'
 import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap'
-import $ from 'jquery'; 
-import { GoogleMap, Circle , Marker, HeatmapLayer, withScriptjs, withGoogleMap } from "react-google-maps"
+//import $ from 'jquery'; 
+import { GoogleMap, Circle, withScriptjs, withGoogleMap } from "react-google-maps"
 import Countdown from 'react-countdown-now';
 
 export default class MapView extends Component {
@@ -64,9 +64,9 @@ const Map = withScriptjs(withGoogleMap(props => {
 }))
 
 class AuctionCircle extends Component {
-    constructor(props, context) {
+    /*constructor(props, context) {
         super(props, context);
-    }
+    } */
     render() {
         return(
             <Circle center={this.props.center} radius={this.props.radius}
@@ -117,9 +117,9 @@ class AuctionPreview extends Component {
 }
 
 class AuctionItem extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    } */
     render() {
         const renderer = ({ hours, minutes, seconds, completed }) => {
             if (completed) {

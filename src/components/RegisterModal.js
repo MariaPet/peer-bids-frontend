@@ -95,9 +95,9 @@ export default class RegisterModal extends Component {
 }
 
 class RegisterForm extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    } */
     render() {
         return (
             <Form>

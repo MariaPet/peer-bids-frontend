@@ -37,9 +37,9 @@ export default class LoginModal extends Component {
 }
 
 class LoginForm extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    }*/
     render() {
         return (
             <Form>

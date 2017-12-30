@@ -45,9 +45,6 @@ export const createAuction = (auction) => (dispatch, state) => {
     var token = window.localStorage.getItem("token");
     if (token) {
         var auctionCreate = "http://localhost:5000/api/product";
-        // $.post(auctionCreate, auction, (responceData) => {
-        //     dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
-        // }, "json").fail(() => dispatch({type: 'AUCTION_CREATION_FAILED'}));
         $.ajax({
             url: auctionCreate,
             type: 'post',

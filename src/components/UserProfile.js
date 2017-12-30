@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Authorization from './Authorization'
 import {
     Row,
     Col,
@@ -9,7 +10,7 @@ import {
 } from 'reactstrap'
 import noUserImage from '../img/no-user-image.gif'
 
-export default class UserProfile extends Component {
+export default class UserProfile extends Authorization {
     constructor(props) {
         super(props);
         this.state = {

@@ -6,6 +6,7 @@ import App from './containers/App';
 import MapView from './components/MapView';
 import UserProfile from './containers/UserProfile'
 import NewAuctionForm from './containers/NewAuctionForm'
+import RealtimeBid from './containers/RealtimeBid'
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'
@@ -28,6 +29,7 @@ ReactDOM.render(
                 <Route path="map" component={MapView}/>
                 <Route path="profile" component={UserProfile} />
                 <Route path="new" component={NewAuctionForm} />
+                <Route path="/realtime-bid/:auction" component={RealtimeBid}/>
             </Route>
         </Router>
     </Provider>,

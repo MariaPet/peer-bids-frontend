@@ -1,4 +1,4 @@
-export default function auctions(state = {auctionsList: [], newAuction: null, loading: false}, action) {
+export default function auctions(state = {auctionsList: null, newAuction: null, loading: false}, action) {
     switch (action.type) {
         case 'GET_AUCTIONS':
         return {...state,
@@ -8,6 +8,11 @@ export default function auctions(state = {auctionsList: [], newAuction: null, lo
         case 'AUCTIONS_LOADING':
         return {...state,
             loading: true
+        }
+        case 'GET_AUCTIONS_FAILED':
+        return {...state,
+            loading: false,
+            auctionsList: null
         }
         case 'CREATE_AUCTION':
         return {...state,

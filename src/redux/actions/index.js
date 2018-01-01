@@ -6,6 +6,10 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
+const server = 'http://localhost:5000/';
+// const server = 'https://peer-bids-back-end.appspot.com/';
+
+//TODO remove test action getApiData
 export const getApiData = (dispatch, state) => {
     dispatch({type: 'DATA_LOADING'});
     var flaskAPI = "https://peer-bids-back-end.appspot.com/api/dummy"
@@ -18,7 +22,7 @@ export const getApiData = (dispatch, state) => {
 
 export const getAuctions = (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING', [ pendingTask ]: begin});
-    var getAuctions = "http://localhost:5000/api/product";
+    var getAuctions = server + "api/product";
     $.getJSON(getAuctions).done(responceData => {
         dispatch({type: 'GET_AUCTIONS', auctions: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/map'});
@@ -27,7 +31,7 @@ export const getAuctions = (dispatch, state) => {
 
 export const registerUser = (user) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
-    var registerUser = "http://localhost:5000/signup";
+    var registerUser = server + "signup";
     $.post(registerUser, user, (responceData) => {
         dispatch({type: 'REGISTER', user: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/', state:{showRegisterModal: false}});
@@ -36,7 +40,7 @@ export const registerUser = (user) => (dispatch, state) => {
 
 export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
-    var loginUser = "http://localhost:5000/login";
+    var loginUser = server + "login";
     $.post(loginUser, credentials, (responceData) => {
         window.localStorage.setItem("idToken", responceData.token);
         dispatch({type: 'LOGIN', user: responceData.data.claims, [ pendingTask ]: end});
@@ -46,7 +50,7 @@ export const login = (credentials) => (dispatch, state) => {
 
 export const refreshToken = (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
-    let refreshTokenUrl = "http://localhost:5000/refresh";
+    let refreshTokenUrl = server + "refresh";
     let refreshToken = window.localStorage.getItem("idToken");
     if (refreshToken) {
         $.post(refreshTokenUrl, {refreshToken}, (responceData) => {
@@ -75,7 +79,7 @@ export const uploadImage = (picture) => (dispatch, state) => {
     var formData = new FormData();
     formData.append('profilePic', picture);
     if (token) {
-        var uploadUrl = "http://localhost:5000/upload";
+        var uploadUrl = server + "upload";
         $.ajax({
             url: uploadUrl,
             type: 'post',
@@ -101,7 +105,7 @@ export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var token = window.localStorage.getItem("idToken");
     if (token) {
-        var auctionCreate = "http://localhost:5000/api/product";
+        var auctionCreate = server + "api/product";
         $.ajax({
             url: auctionCreate,
             type: 'post',
@@ -129,7 +133,7 @@ export const realtimeBid = (bid_value)=> (dispatch, state) => {
     dispatch({type: 'BID_LOADING'});
     var token = window.localStorage.getItem("token");
     if (token) {
-        var addBid = "http://localhost:5000/api/realtime_bid/<p_id>'";
+        var addBid = server + "api/realtime_bid/<p_id>'";
         $.ajax({
             url: addBid,
             type: 'post',

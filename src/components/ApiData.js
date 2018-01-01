@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class ApiData extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
-    }
+    } */
     render() {
         console.log(this.props)
         const {data:{data, loading}, onFlaskData} = this.props;

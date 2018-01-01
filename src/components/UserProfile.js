@@ -33,7 +33,7 @@ export default class UserProfile extends Authorization {
         return (
             <Row>
                 <Col xs="12" md="4" className="d-flex flex-column align-items-center py-4">
-                    <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg?this.props.currentUser.profileImg:noUserImage} alt="Profile Image" className="rounded-circle" />
+                    <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg?this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />
                     <span>Name Surname</span>
                 </Col>
                 <Col xs="12" md="8" className="py-4">
@@ -100,9 +100,9 @@ export default class UserProfile extends Authorization {
 }
 
 class Bids extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props)
-    }
+    }*/
     render() {
         return (
             <div>
@@ -113,9 +113,9 @@ class Bids extends Component {
 }
 
 class Auctions extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props)
-    }
+    }*/
     render() {
         return (
             <div>

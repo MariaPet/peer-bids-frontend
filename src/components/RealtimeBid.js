@@ -8,6 +8,7 @@ import '../styles/realtimeBid.css';
 import { realtimeBid, productDetails } from '../redux/actions/index';
 import ReactDOM from 'react-dom';
 import { Carousel } from 'react-responsive-carousel';
+//import { realtimeBid } from '../redux/actions/index'
 
 const propTypes = {
     transcript: PropTypes.string,

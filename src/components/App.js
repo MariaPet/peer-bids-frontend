@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../containers/NavBar';
 import RegisterModal from '../containers/RegisterModal';
 import LoginModal from '../containers/LoginModal';
-import { Link, browserHistory } from 'react-router'
+//import { Link, browserHistory } from 'react-router'
 import {
   Spinner
 } from 'react-redux-spinner';

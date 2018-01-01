@@ -1,6 +1,6 @@
 import React from 'react';
 import './SignUp.css';
-import ReactCSSTransitionGroup from 'react-transition-group';
+//import ReactCSSTransitionGroup from 'react-transition-group';
 var createReactClass = require('create-react-class');
 var Input = createReactClass({
 	render: function() {

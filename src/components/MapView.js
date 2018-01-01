@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component, Children} from 'react'
 import { browserHistory } from 'react-router'
 import '../styles/mapview.css'
 import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap'
-import $ from 'jquery'; 
-import { GoogleMap, Circle , Marker, HeatmapLayer, withScriptjs, withGoogleMap } from "react-google-maps"
+//import $ from 'jquery'; 
+import { GoogleMap, Circle, withScriptjs, withGoogleMap } from "react-google-maps"
 import Countdown from 'react-countdown-now';
 
 export default class MapView extends Component {
@@ -64,9 +64,6 @@ const Map = withScriptjs(withGoogleMap(props => {
 }))
 
 class AuctionCircle extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
     render() {
         return(
             <Circle center={this.props.center} radius={this.props.radius}
@@ -87,8 +84,34 @@ class AuctionPreview extends Component {
         var renderElements = null;
         if (this.state.user) {
             let auctionItems = []
+            var renderer = ({ days, hours, minutes, seconds, completed }) => {
+                if (completed) {
+                  // Render a completed state 
+                  return <span>BOOM</span>;
+                } else {
+                  // Render a countdown 
+                  return (
+                  <span className='d-flex justify-content-end'>
+                     <span className="d-flex flex-column">
+                        <span>Days</span><span className="rounded-circle clock-element">{days}</span>
+                    </span>
+                    <span className="d-flex flex-column">
+                        <span>Hours</span><span className="rounded-circle clock-element">{hours}</span>
+                    </span>
+                    <span className="d-flex flex-column">
+                        <span>Minutes</span><span className="rounded-circle clock-element">{minutes}</span>
+                    </span>
+                    <span className="d-flex flex-column">
+                        <span>Seconds</span><span className="rounded-circle clock-element">{seconds}</span>
+                    </span>
+                  </span>);
+                }
+            };
             for (var auction in this.state.user.auctions) {
-                auctionItems.push(<AuctionItem key={auction} auction={this.state.user.auctions[auction]}/>);
+                auctionItems.push(<AuctionItem key={auction} id={auction} auction={this.state.user.auctions[auction]}>
+                    <Countdown key={auction} date={this.state.user.auctions[auction].expiration_date * 1000} 
+                    renderer={renderer} />
+                </AuctionItem>);
             }
             renderElements = 
             (<Row id="auctionPreview" className="transform-slider pt-3">
@@ -117,37 +140,14 @@ class AuctionPreview extends Component {
 }
 
 class AuctionItem extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
-        const renderer = ({ hours, minutes, seconds, completed }) => {
-            if (completed) {
-              // Render a completed state 
-              return <span>BOOM</span>;
-            } else {
-              // Render a countdown 
-              return (
-              <span className='d-flex justify-content-end'>
-                <span className="d-flex flex-column">
-                    <span>Hours</span><span className="rounded-circle clock-element">{hours}</span>
-                </span>
-                <span className="d-flex flex-column">
-                    <span>Minutes</span><span className="rounded-circle clock-element">{minutes}</span>
-                </span>
-                <span className="d-flex flex-column">
-                    <span>Seconds</span><span className="rounded-circle clock-element">{seconds}</span>
-                </span>
-              </span>);
-            }
-        };
         return(
             <ListGroupItem>
                 <ListGroupItemHeading>{this.props.auction.title}</ListGroupItemHeading>
                 <ListGroupItemText>
                     {this.props.auction.description}<br />
                     {this.props.auction.min_price}<br />
-                    <Countdown date={this.props.auction.expiration_date * 1000} renderer={renderer} />
+                    {this.props.children}
                 </ListGroupItemText>
             </ListGroupItem>
         );

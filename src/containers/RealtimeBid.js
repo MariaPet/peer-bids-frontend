@@ -12,7 +12,7 @@ function mapDispatchToProps(bid_value) {
 
 export default connect(
     (state, props) => ({
-        bid_value: state.bid
+        bid_value: state.bid_value
     }),
     mapDispatchToProps
 )(RealtimeBid);

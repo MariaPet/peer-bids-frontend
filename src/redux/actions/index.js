@@ -153,4 +153,11 @@ export const realtimeBid = (bid_value)=> (dispatch, state) => {
     }
 }
 
-   
+export const productDetails = (product_id)=> (dispatch, state) => {
+    dispatch({type: 'PRODUCT_LOADING', [ pendingTask ]: begin });
+    var product_details = "http://localhost:5000/api/getProduct/<id>'";
+    $.getJSON(product_details).done(responceData => {
+        dispatch({type: 'GET_AUCTIONS', product: responceData.data, [ pendingTask ]: end});
+    }).fail(()=>{ dispatch({type: 'GET_AUCTIONS_FAILED',[ pendingTask ]: end})});            
+}
+

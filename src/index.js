@@ -4,17 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
 import MapView from './containers/MapView';
-import UserProfile from './containers/UserProfile'
-import NewAuctionForm from './containers/NewAuctionForm'
-import RealtimeBid from './containers/RealtimeBid'
+import UserProfile from './containers/UserProfile';
+import NewAuctionForm from './containers/NewAuctionForm';
+import RealtimeBid from './containers/RealtimeBid';
 // import Test from './components/Test';
 import SignUp from './components/SignUp';
 import ApiData from './containers/ApiData';
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
-import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import FrontSearch from './containers/FrontSearch';
 import {refreshToken} from './redux/actions/index';
 
@@ -32,7 +32,7 @@ ReactDOM.render(
                 <Route path="map" component={MapView}/>
                 <Route path="profile" component={UserProfile} />
                 <Route path="new" component={NewAuctionForm} />
-                <Route path="/realtime-bid/:auction" component={RealtimeBid}/>
+                <Route path="/realtime-bid/:auction" component={RealtimeBid} />
                 {/* <IndexRoute component={ApiData}/>
                 <Route path="test" component={Test}/>
                 <Route path="signUp" component={SignUp}/> */}

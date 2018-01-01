@@ -71,10 +71,16 @@ class RealtimeBid extends Component {
                     <p><span>Product name:</span>cushions</p>
                     <p><span>Product Details:</span>IKEA Red decorative cushions</p>
                     <p><span>Condition:</span>NEW</p>
-                </div>     
-            </div>                    
+                </div>                                  
+            </div>  
+            <div className="images">
+                <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/>
+                <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/>
+                <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/>
+            </div>       
+                      
         </div>
-      
+    
         )
     }   
 }

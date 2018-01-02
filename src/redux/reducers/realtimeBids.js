@@ -1,22 +1,18 @@
-export default function bids(state = {bidsList: [], newBids: null, loading: false}, action) {
+export default function bid(state = {bid: null, loading: false}, action) {
     switch (action.type) {
-        case 'GET_BIDS':
-        return {...state,
-            bidsList: action.bid,
-            loading: false
-        }
-        case 'BIDS_LOADING':
-        return {...state,
-            loading: true
-        }
+        // case 'GET_BID':
+        // return {...state,
+        //     bid: action.bid,
+        //     loading: false
+        // }
         case 'CREATE_BID':
         return {...state,
-            newBid: action.bid,
+            bid: action.bid,
             loading: false,
         }
         case 'BID_CREATION_FAILED':
         return {...state,
-            newBid: null,
+            bid: null,
             loading:false
         }
         default:

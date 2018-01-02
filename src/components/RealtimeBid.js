@@ -7,7 +7,6 @@ import microphone from '../img/microphone-icon.png';
 import '../styles/realtimeBid.css';
 import { realtimeBid, productDetails } from '../redux/actions/index';
 import ReactDOM from 'react-dom';
-import { Carousel } from 'react-responsive-carousel';
 
 const propTypes = {
     transcript: PropTypes.string,
@@ -29,7 +28,9 @@ class RealtimeBid extends Component {
     
    
     onSpeech= function(event) {
-        // this.props.productDetails(this.props.params.auction);  
+        
+    //    console.log( productDetails(this.state.product_id));
+        // this.props.productDetails(this.state.product_id);  
         event.stopPropagation();
         this.setState({bid_value: event.target.value});
         console.log(this.props.params.auction); 
@@ -45,7 +46,6 @@ class RealtimeBid extends Component {
         var bid_value = parseInt(value);
         this.last_value = bid_value ? bid_value : 0;
         this.props.realtimeBid(bid_value,this.state.product_id); 
-        // this.props.productDetails(this.props.params.auction)              
     }
     
     render() {

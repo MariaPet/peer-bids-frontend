@@ -88,6 +88,7 @@ export const uploadImage = (picture) => (dispatch, state) => {
             processData: false,
             contentType: false,
             headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',                
                 "x-access-token": token
             },
             dataType: 'json',
@@ -141,8 +142,7 @@ export const createAuction = (auction) => (dispatch, state) => {
 
 
 export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
-    dispatch({type: 'BID_LOADING'});
-    var token = window.localStorage.getItem("idToken");
+    var token =  window.localStorage.getItem("idToken");
     if (token) {
         var addBid = server + "api/bid";
         $.ajax({
@@ -158,17 +158,18 @@ export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
             },
             dataType: 'json',
             success: function (responceData) {
+                console.log("success");
                 dispatch({type: 'CREATE_BID', bid: responceData.data});
             },
             error: function() {
                 console.log('error with new bid');
-                dispatch({type: 'BID_ADDING_FAILED'})
+                dispatch({type: 'BID_CREATION_FAILED'})
             }
         });  
     }
     else {
         console.log("no token identified");
-        dispatch({type: 'BID_ADDING_FAILED'})
+        dispatch({type: 'BID_CREATION_FAILED'})
     }
 }
 
@@ -183,11 +184,11 @@ export const productDetails = (product_id)=> (dispatch, state) => {
         },
         dataType: 'json',
         success: function (responceData) {
-            dispatch({type: 'GET_AUCTIONS', auction: responceData.data});
+            dispatch({type: 'GET_PRODUCT', product: responceData.data});
         },
         error: function() {
             console.log("error with getting the product details");
-            dispatch({type: 'GET_AUCTIONS_FAILED'})
+            dispatch({type: 'PRODUCT_LOADING_FAILED'})
         }
     });          
 }

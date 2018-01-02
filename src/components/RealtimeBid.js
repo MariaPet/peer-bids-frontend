@@ -33,9 +33,9 @@ class RealtimeBid extends Component {
         // this.props.productDetails(this.state.product_id);  
         event.stopPropagation();
         this.setState({bid_value: event.target.value});
-        console.log(this.props.params.auction); 
-        console.log(this.state.product_id);    
-        console.log(this.state.bid_value);       
+        // console.log(this.state.bid_value);  
+        console.log(this.state.product_id.replace(/['"]+/g, ''));
+        
         var txt = event.target.value;
         var value = txt.match(/\d/g);
         if (value == null){
@@ -45,7 +45,7 @@ class RealtimeBid extends Component {
         }
         var bid_value = parseInt(value);
         this.last_value = bid_value ? bid_value : 0;
-        this.props.realtimeBid(bid_value,this.state.product_id);  // tu trimiti json cu header de x-www
+        this.props.realtimeBid(bid_value,this.state.product_id);
         }
     
     render() {
@@ -60,11 +60,9 @@ class RealtimeBid extends Component {
         <div className="top">    
             <div className="microphone">
                 <div className="mic-icon" >
-                    <img src={microphone} alt="Microphone" className="gray-mic" onClick = { resetTranscript }  />
-                
+                    <img src={microphone} alt="Microphone" className="gray-mic" onClick = { resetTranscript }  />                
                     {/* <img style={{height:"100px", width:"100px", backgroundColor: "darkseagreen"}} src={microphone} alt="Microphone" className="rounded-circle"  onClick = { startListening }  />
                     {/* <img style={{height:"100px", width:"100px", backgroundColor: "#a75d5d"}} src={microphone} alt="Microphone" className="rounded-circle"  onClick = { stopListening} /> */} 
-
                     <Input type = "text" name = "bid_value" id = "bid_val" value= { transcript } onChange = { this.onSpeech } />
                     {/* <p className="transcript">{ this.state.bid_value ? this.state.bid_value : "Start bidding"}</p>   */}
                     {/* <p className="transcript"> {transcript ? transcript : "click the button to start bidding"} </p>  */}

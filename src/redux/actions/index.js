@@ -145,17 +145,22 @@ export const createAuction = (auction) => (dispatch, state) => {
 
 export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
     var token =  window.localStorage.getItem("idToken");
+    var formData = new FormData();
+    formData.append('product_id', product_id);
+    formData.append('bid_value',bid_value);
     if (token) {
         var addBid = server + "api/bid";         
         $.ajax({
             url: addBid,
             type: 'post',
-            dataType: 'json',            
+            dataType: 'json',     
+            data: formData,
+            contentType:false,
+            processData: false, 
             // data:qs.parse("product_id=" + product_id+"&bid_value="+bid_value),
-//          data:"product_id=" + product_id+"&bid_value="+bid_value,
-            data: qs.parse({"product_id":product_id,"bid_value":bid_value}),
+            // data: qs.parse({"product_id":product_id,"bid_value":bid_value}),
             headers: {
-                'Content-Type': 'application/json', 
+                // 'Content-Type': 'application/json', 
                 "x-access-token": token
             },
             success: function (responceData) {

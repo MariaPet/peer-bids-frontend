@@ -31,7 +31,7 @@ ReactDOM.render(
                 <Route path="map" component={MapView}/>
                 <Route path="profile" component={UserProfile} />
                 <Route path="new" component={NewAuctionForm} />
-                <Route path="/realtime-bid/:auction" component={RealtimeBid} />
+                <Route path="realtime-bid/:auction" component={RealtimeBid} />
                 {/* <IndexRoute component={ApiData}/>
                 <Route path="signUp" component={SignUp}/> */}
             </Route>

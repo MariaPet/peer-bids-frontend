@@ -2,15 +2,14 @@ import React, {Component, Children} from 'react'
 import { browserHistory } from 'react-router'
 import '../styles/mapview.css'
 import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap'
-//import $ from 'jquery'; 
 import { GoogleMap, Circle, withScriptjs, withGoogleMap } from "react-google-maps"
 import Countdown from 'react-countdown-now';
+import {Link} from 'react-router'
 
 export default class MapView extends Component {
     componentDidMount() {
         if (!this.props.auctions) browserHistory.push({pathname: '/'});
     }
-
     constructor(props) {
         super(props);
         this.state = { previewedAuctions: null }
@@ -39,7 +38,6 @@ export default class MapView extends Component {
         );
     }
 }
-
 const Map = withScriptjs(withGoogleMap(props => {
     var densityCircles = [];
     var users = props.users;
@@ -141,12 +139,14 @@ class AuctionPreview extends Component {
 
 class AuctionItem extends Component {
     render() {
+        debugger;
         return(
             <ListGroupItem>
                 <ListGroupItemHeading>{this.props.auction.title}</ListGroupItemHeading>
                 <ListGroupItemText>
                     {this.props.auction.description}<br />
                     {this.props.auction.min_price}<br />
+                    <Link to={'/realtime-bid/' + this.props.id} params={{auction: this.props.auction}}>Place a bid</Link>
                     {this.props.children}
                 </ListGroupItemText>
             </ListGroupItem>

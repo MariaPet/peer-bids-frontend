@@ -104,14 +104,24 @@ export const uploadImage = (picture) => (dispatch, state) => {
 export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var token = window.localStorage.getItem("idToken");
+    var formData = new FormData();
+    formData.append('images', auction.images);
+    formData.append('title', auction.title);
+    formData.append('description', auction.description);
+    formData.append('initial_price', auction.initial_price);
+    formData.append('status', auction.status);
+    formData.append('expiration_date', auction.expiration_date);
+    formData.append('category', auction.category);
     if (token) {
         var auctionCreate = server + "api/product";
         $.ajax({
             url: auctionCreate,
             type: 'post',
-            data: auction,
+            data: formData,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 "x-access-token": token
             },
             dataType: 'json',

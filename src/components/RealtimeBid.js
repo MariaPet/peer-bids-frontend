@@ -45,8 +45,8 @@ class RealtimeBid extends Component {
         }
         var bid_value = parseInt(value);
         this.last_value = bid_value ? bid_value : 0;
-        this.props.realtimeBid(bid_value,this.state.product_id); 
-    }
+        this.props.realtimeBid(bid_value,this.state.product_id);  // tu trimiti json cu header de x-www
+        }
     
     render() {
         const { transcript, resetTranscript, browserSupportsSpeechRecognition, recognition, startListening, stopListening } = this.props        

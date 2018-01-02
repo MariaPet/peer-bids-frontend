@@ -1,4 +1,6 @@
 import $ from 'jquery'
+import qs from'qs';
+import assert from 'assert';
 import { browserHistory } from 'react-router'
 import {
     pendingTask, // The action key for modifying loading state
@@ -144,22 +146,21 @@ export const createAuction = (auction) => (dispatch, state) => {
 export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
     var token =  window.localStorage.getItem("idToken");
     if (token) {
-        var addBid = server + "api/bid";
+        var addBid = server + "api/bid";         
         $.ajax({
             url: addBid,
             type: 'post',
-           data: JSON.stringify({
-                bid_value: bid_value,
-                product_id: product_id
-              }),
+            dataType: 'json',            
+            // data:qs.parse("product_id=" + product_id+"&bid_value="+bid_value),
+//          data:"product_id=" + product_id+"&bid_value="+bid_value,
+            data: qs.parse({"product_id":product_id,"bid_value":bid_value}),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json', 
                 "x-access-token": token
             },
-            dataType: 'json',
             success: function (responceData) {
                 console.log("success");
-                dispatch({type: 'CREATE_BID', bid: responceData.data});
+                dispatch({type: 'CREATE_BID', bid: responceData.data}); 
             },
             error: function() {
                 console.log('error with new bid');

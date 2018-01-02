@@ -7,7 +7,6 @@ import MapView from './containers/MapView';
 import UserProfile from './containers/UserProfile';
 import NewAuctionForm from './containers/NewAuctionForm';
 import RealtimeBid from './containers/RealtimeBid';
-// import Test from './components/Test';
 import SignUp from './components/SignUp';
 import ApiData from './containers/ApiData';
 import registerServiceWorker from './registerServiceWorker';
@@ -34,7 +33,6 @@ ReactDOM.render(
                 <Route path="new" component={NewAuctionForm} />
                 <Route path="/realtime-bid/:auction" component={RealtimeBid} />
                 {/* <IndexRoute component={ApiData}/>
-                <Route path="test" component={Test}/>
                 <Route path="signUp" component={SignUp}/> */}
             </Route>
         </Router>

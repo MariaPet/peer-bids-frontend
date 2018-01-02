@@ -8,7 +8,6 @@ import '../styles/realtimeBid.css';
 import { realtimeBid, productDetails } from '../redux/actions/index';
 import ReactDOM from 'react-dom';
 import { Carousel } from 'react-responsive-carousel';
-//import { realtimeBid } from '../redux/actions/index'
 
 const propTypes = {
     transcript: PropTypes.string,
@@ -16,26 +15,39 @@ const propTypes = {
     browserSupportsSpeechRecognition: PropTypes.bool,
     recognition: PropTypes.any
 }
+const last_value = 0;
 
 class RealtimeBid extends Component {
     constructor(props) {
         super(props);
-        this.state = { bid_value: "" };
+        this.state = { 
+            // bid_value: "",
+            product_id: this.props.params.auction
+        };
         this.onSpeech = this.onSpeech.bind(this);
     }     
     
    
     onSpeech= function(event) {
+        // this.props.productDetails(this.props.params.auction);  
         event.stopPropagation();
         this.setState({bid_value: event.target.value});
-        // this.props.realtimeBid("83");        
-        console.log(this.props.params.auction);    
-        // this.props.realtimeBid(this.state.bid_value); 
-        // this.props.productDetails(this.props.params.auction)
-              
+        console.log(this.props.params.auction); 
+        console.log(this.state.product_id);    
+        console.log(this.state.bid_value);       
+        var txt = event.target.value;
+        var value = txt.match(/\d/g);
+        if (value == null){
+            value= 0;
+        } else {
+            value = value.join("");
+        }
+        var bid_value = parseInt(value);
+        this.last_value = bid_value ? bid_value : 0;
+        this.props.realtimeBid(bid_value,this.state.product_id); 
+        // this.props.productDetails(this.props.params.auction)              
     }
     
- 
     render() {
         const { transcript, resetTranscript, browserSupportsSpeechRecognition, recognition, startListening, stopListening } = this.props        
         recognition.lang = 'en-GB';
@@ -51,11 +63,12 @@ class RealtimeBid extends Component {
                     <img src={microphone} alt="Microphone" className="gray-mic" onClick = { resetTranscript }  />
                 
                     {/* <img style={{height:"100px", width:"100px", backgroundColor: "darkseagreen"}} src={microphone} alt="Microphone" className="rounded-circle"  onClick = { startListening }  />
-                    <img style={{height:"100px", width:"100px", backgroundColor: "#a75d5d"}} src={microphone} alt="Microphone" className="rounded-circle"  onClick = { stopListening} /> */}
+                    {/* <img style={{height:"100px", width:"100px", backgroundColor: "#a75d5d"}} src={microphone} alt="Microphone" className="rounded-circle"  onClick = { stopListening} /> */} 
 
-                    {/* <Input type = "text" name = "bid_value" id = "bid_val" value= { transcript } onChange = { this.onSpeech } /> */}
-                    {/* <p>{ this.state.bid_value }</p>   */}
-                    <p className="transcript"> {transcript} </p>    
+                    <Input type = "text" name = "bid_value" id = "bid_val" value= { transcript } onChange = { this.onSpeech } />
+                    {/* <p className="transcript">{ this.state.bid_value ? this.state.bid_value : "Start bidding"}</p>   */}
+                    {/* <p className="transcript"> {transcript ? transcript : "click the button to start bidding"} </p>  */}
+                    <p>Your last offer: {this.last_value ? this.last_value : 0}</p>   
                 </div>
             </div> 
             <div className="actual-bids">
@@ -68,6 +81,7 @@ class RealtimeBid extends Component {
                     </ul>
                 </div>                
                 <div className="product-details">
+                    <p><span>Category:</span>House items</p>
                     <p><span>Product name:</span>cushions</p>
                     <p><span>Product Details:</span>IKEA Red decorative cushions</p>
                     <p><span>Condition:</span>NEW</p>

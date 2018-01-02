@@ -52,15 +52,17 @@ transform: translateX(-50%) scale(1.05);
     text-align: center;
     margin-top: 50px;
     width: 50%;
+    color:#007bff;
+    font-weight: 500;
 }
+
 .actual-bids{
     margin: 0 auto;
     /* background-image: linear-gradient(to bottom, rgba(62, 62, 70, 0.06), white); */
     background-color: #fff;
     border-radius: 7px;
-    /* background-color: #fff; */
     width: 80%;
-    height: 250px;
+    height: 350px;
     -webkit-box-shadow: 1px 3px 2px 0px rgba(62, 62, 70, 0.06);
     box-shadow:-2px 1px 1px 5px rgba(62, 62, 70, 0.06);
 }
@@ -83,7 +85,7 @@ transform: translateX(-50%) scale(1.05);
 .images{
     width: 80%;
     margin: 0 auto;
-    background-image: linear-gradient(to top, rgba(62, 62, 70, 0.1), white);    
+    background-image: linear-gradient(to top, rgba(62, 62, 70, 0.19), white);    
     position:relative;
     overflow:hidden;
     padding-bottom: 60px;

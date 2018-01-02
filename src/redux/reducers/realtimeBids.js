@@ -2,7 +2,7 @@ export default function bids(state = {bidsList: [], newBids: null, loading: fals
     switch (action.type) {
         case 'GET_BIDS':
         return {...state,
-            bidsList: action.auctions,
+            bidsList: action.bid,
             loading: false
         }
         case 'BIDS_LOADING':
@@ -11,7 +11,7 @@ export default function bids(state = {bidsList: [], newBids: null, loading: fals
         }
         case 'CREATE_BID':
         return {...state,
-            newBid: action.auction,
+            newBid: action.bid,
             loading: false,
         }
         case 'BID_CREATION_FAILED':

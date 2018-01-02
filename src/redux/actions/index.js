@@ -129,39 +129,56 @@ export const createAuction = (auction) => (dispatch, state) => {
     }
 }
 
-export const realtimeBid = (bid_value)=> (dispatch, state) => {
+
+export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
     dispatch({type: 'BID_LOADING'});
-    var token = window.localStorage.getItem("token");
+    var token = window.localStorage.getItem("idToken");
     if (token) {
-        var addBid = server + "api/realtime_bid/<p_id>'";
+        var addBid = server + "api/bid";
         $.ajax({
             url: addBid,
             type: 'post',
-            data: bid_value,
+           data: JSON.stringify({
+                bid_value: bid_value,
+                product_id: product_id
+              }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 "x-access-token": token
             },
             dataType: 'json',
             success: function (responceData) {
-                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+                dispatch({type: 'CREATE_BID', bid: responceData.data});
             },
             error: function() {
-                console.log('error with new bid')
+                console.log('error with new bid');
                 dispatch({type: 'BID_ADDING_FAILED'})
             }
         });  
     }
     else {
+        console.log("no token identified");
         dispatch({type: 'BID_ADDING_FAILED'})
     }
 }
 
-export const productDetails = (product_id)=> (dispatch, state) => {
-    dispatch({type: 'PRODUCT_LOADING', [ pendingTask ]: begin });
-    var product_details = "http://localhost:5000/api/getProduct/<id>'";
-    $.getJSON(product_details).done(responceData => {
-        dispatch({type: 'GET_AUCTIONS', product: responceData.data, [ pendingTask ]: end});
-    }).fail(()=>{ dispatch({type: 'GET_AUCTIONS_FAILED',[ pendingTask ]: end})});            
+export const productDetails = (product_id)=> (dispatch, state) => {   
+    var product_details = server + "/api/product";
+    $.ajax({
+        url: product_details,
+        type: 'post',
+        data: product_id,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        dataType: 'json',
+        success: function (responceData) {
+            dispatch({type: 'GET_AUCTIONS', auction: responceData.data});
+        },
+        error: function() {
+            console.log("error with getting the product details");
+            dispatch({type: 'GET_AUCTIONS_FAILED'})
+        }
+    });          
 }
 

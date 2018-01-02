@@ -1,8 +1,8 @@
-// import RealtimeBid from '../components/RealtimeBid';
+import RealtimeBid from '../components/RealtimeBid';
 import { connect } from 'react-redux';
 import { productDetails } from '../redux/actions/index';
 
-function mapDispatchToProps(credentials) {
+function mapDispatchToProps(product_id) { 
     return (dispatch, ownProps) => {
         return {
             productDetails: (product_id) => dispatch(productDetails(product_id))
@@ -12,7 +12,7 @@ function mapDispatchToProps(credentials) {
 
 export default connect(
     (state, props) => ({
-        loading: state.user.loading  //?
+        product_id: state.product_id
     }),
     mapDispatchToProps
 )(RealtimeBid);

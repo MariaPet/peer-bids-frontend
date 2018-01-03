@@ -139,14 +139,13 @@ class AuctionPreview extends Component {
 
 class AuctionItem extends Component {
     render() {
-        debugger;
         return(
             <ListGroupItem>
                 <ListGroupItemHeading>{this.props.auction.title}</ListGroupItemHeading>
                 <ListGroupItemText>
                     {this.props.auction.description}<br />
                     {this.props.auction.min_price}<br />
-                    <Link to={'/realtime-bid/' + this.props.id} params={{auction: this.props.auction}}>Place a bid</Link>
+                    <Link to={{pathname:'/realtime-bid/' + this.props.id, state: this.props.auction}}>Place a bid</Link>
                     {this.props.children}
                 </ListGroupItemText>
             </ListGroupItem>

@@ -109,3 +109,10 @@ transform: translateX(-50%) scale(1.05);
     border-radius:0 0 50% 50%;
 }
 /* .hidden { display:none; } */
+.closed-auction{
+    padding: 70px;
+    text-align: center;
+    color: #007bff;
+    font-weight: 400;
+    font-size: 19px;
+}

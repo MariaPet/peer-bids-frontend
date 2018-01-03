@@ -23,14 +23,20 @@ const last_value = 0;
 class RealtimeBid extends Authorization {
     constructor(props) {
         super(props);
+        var auction = null;
+        var product_id = this.props.params.auction;
+        if( this.props.productOwner) 
+            var auction = this.props.productOwner.auctions[product_id];
         this.state = {
+            auction,
+            errorMessage: "",
             bid_value: "",
-            product_id: this.props.params.auction,
+            product_id,
             show:true
         };
         // this.onSpeech = this.onSpeech.bind(this);
         this.toggleMic = this.toggleMic.bind(this);
-        // this.bids = this.props.location.state.bids;
+        this.submitBid = this.submitBid.bind(this);
     }
     componentDidMount() {
         if (!this.props.productOwner) browserHistory.push({pathname: '/'});
@@ -38,29 +44,33 @@ class RealtimeBid extends Authorization {
     componentWillReceiveProps(nextProps) {
         console.log("is listening " + nextProps.listening);
         console.log("transcript is " + nextProps.transcript);
+        // debugger;
+        if(nextProps.productOwner) {
+            var auction = nextProps.productOwner.auctions[nextProps.params.auction];
+            this.setState({auction});
+        }        
     }
     toggleMic() {
         // debugger;
         if (this.props.listening) this.props.stopListening();
         else this.props.startListening();
     } 
-
-    // onSpeech= function(event) {        
-    //     event.stopPropagation();
-    //     this.setState({bid_value: event.target.value});
-    //     this.setState({show: false});
-    //             var txt = event.target.value;
-    //     var value = txt.match(/\d/g);
-    //     if (value == null){
-    //         value= 0;
-    //     } else {
-    //         value = value.join("");
-    //     }
-    //     var bid_value = parseInt(value);
-    //     this.last_value = bid_value ? bid_value : 0;
-    //     // this.props.realtimeBid(bid_value,this.state.product_id);
-    //     // console.log(this.props.location.state)
-    // }
+    submitBid() {
+        var bid_value = this.props.finalTranscript;
+        if (!isNaN(bid_value)) {
+            if (this.state.auction.min_price < bid_value){
+                this.props.realtimeBid({bid_value, product_id: this.state.product_id})
+            }
+            else {
+                console.log("Your bid must be greater than the current price");
+                this.setState({errorMessage: "Your bid must be greater than the current price"});
+            }
+        }
+        else {
+            console.log("Your bid must be a numeric value");
+            this.setState({errorMessage: "Your bid must be a numeric value"});
+        }
+    }
     
     render() {
         
@@ -83,13 +93,11 @@ class RealtimeBid extends Authorization {
             style1.display = 'block';      
         }
         if(this.props.productOwner) {
-            var auction = this.props.productOwner.auctions[this.props.params.auction];
-            
             var bidItems = [];
-            for (var bid in auction.bids) {
-                bidItems.push(<BidItem key={bid} bid={auction.bids[bid]}/>)
+            // debugger;
+            for (var bid in this.state.auction.bids) {
+                bidItems.push(<BidItem key={bid} bid={this.state.auction.bids[bid]}/>)
             }
-            
             return (
                 <div className="top">                   
                     <div className="microphone">
@@ -101,7 +109,7 @@ class RealtimeBid extends Authorization {
                             <div>Your bid is: { this.props.transcript }</div>
                             <div>
                                 <Button onClick={this.props.resetTranscript}>Reset Bid</Button> 
-                                <Button onClick={(e) => {this.props.realtimeBid({bid_value: this.props.transcript, product_id: this.state.product_id})}}>Submit Bid</Button>
+                                <Button onClick={this.submitBid}>Submit Bid</Button>
                             </div>
                         </div>
                     </div>            
@@ -111,7 +119,7 @@ class RealtimeBid extends Authorization {
                                 {bidItems.length > 0 ? bidItems : "No bids yet"}
                             </ul>
                         </div>                
-                        <ProductDetails auction={auction} />                                 
+                        <ProductDetails auction={this.state.auction} />                                 
                     </div>  
                     <div className="images">
                         <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/>
@@ -138,6 +146,7 @@ class ProductDetails extends Component {
         var auction = this.props.auction;
         return (
             <div className="product-details">
+                <p><span>Current price: </span>{ auction.min_price}</p>
                 <p><span>Category: </span>{ auction.category ? auction.category : " no category"}</p>
                 <p><span>Product name: </span>{ auction.title}</p>
                 <p><span>Product Details: </span>{ auction.description}</p>

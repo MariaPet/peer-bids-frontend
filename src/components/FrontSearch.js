@@ -1,29 +1,46 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import {Form, FormGroup, Input, Label, Button} from 'reactstrap';
 
 export default class FrontSearch extends Component {
-    /*constructor(props) {
+    constructor(props) {
         super(props);
-    } */
+        this.state = {
+            title: null,
+            postal_code: null,
+            latitude: null,
+            longitude: null
+        };
+        this.onInput = this.onInput.bind(this);
+    }
+    onInput = e => {
+        let key = e.target.name;
+        let value = e.target.value;
+        let newState = {};
+        newState[key] = value;
+        this.setState(newState);
+    }
     render() {
         return (
-            <div>
-                <div className="col-sm-12 col-sm-order-2 col-sm-offset-3 d-flex align-items-center justify-content-center" style={{height:'700px'}}>
-                    <div className="jumbotron">
-                        <h1 className="display-5 d-flex justify-content-center">
-                            Find your item
-                        </h1>
-                        <p className="lead d-flex justify-content-center">
-                            Search Auctions in the Southampton 
-                        </p>
-                        <p className="lead d-flex justify-content-center"> 
-                            you may find what you are looking for! 
-                        </p>
-                        <hr className="my-4"/>
-                        <div className="d-flex justify-content-center">
-                            <input type="text"  placeholder="Search" />
-                            <button onClick={this.props.onSearch} type="submit" className="btn btn-outline-primary"> Search  </button> 
-                        </div> 
-                    </div>
+            <div className="d-flex justify-content-center align-content-center">
+                <div id='searchBox'>
+                    <Form>
+                        <FormGroup>
+                            <Label for="title">What you're looking for?</Label>
+                            <Input name="title" id="title" placeholder="eg. bike"
+                            value={this.state.title} onChange={this.onInput} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="postal_code">Search by postal code</Label>
+                            <Input name="postal_code" id="postal_code" placeholder="eg. SO14 0GE"
+                            value={this.state.postal_code} onChange={this.onInput} />
+                        </FormGroup>
+                    </Form>
+                    <Button onClick={(e) => this.props.onSearch({
+                        title: this.state.title,
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude})}>
+                        Search
+                    </Button>
                 </div>
             </div>
         );

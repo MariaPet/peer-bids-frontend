@@ -22,10 +22,18 @@ export const getApiData = (dispatch, state) => {
     })
 }
 
-export const getAuctions = (dispatch, state) => {
+export const getAuctions = (searchTerms) => (dispatch, state) => {
+    var data = {};
+    if (searchTerms.title) {
+        data.title = searchTerms.title;
+    }
+    if (searchTerms.latitude && searchTerms.longitude) {
+        data.latitude = searchTerms.latitude;
+        data.longitude = searchTerms.longitude;
+    }
     dispatch({type: 'AUCTIONS_LOADING', [ pendingTask ]: begin});
     var getAuctions = server + "api/product";
-    $.getJSON(getAuctions).done(responceData => {
+    $.getJSON(getAuctions, data).done(responceData => {
         dispatch({type: 'GET_AUCTIONS', auctions: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/map'});
     }).fail(() => {dispatch({type: 'GET_AUCTIONS_FAILED', [ pendingTask ]: end})});

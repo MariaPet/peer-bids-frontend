@@ -13,14 +13,17 @@ export default class NewAuctionForm extends Authorization {
             initial_price: "",
             status: "",
             expiration_date: "",
-            category: "",
-            images: null
+            category: ""
         };
         this.onInput = this.onInput.bind(this);
         this.onDrop = this.onDrop.bind(this);
     }
     onDrop = (images) => {
-        this.setState({images: images});
+        for(var img in images)
+        {
+            console.log(images[img]);
+            this.state[images[img].name] = images[img];
+        }
     }
     onInput = e => {
         let key = e.target.name;

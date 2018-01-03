@@ -108,13 +108,10 @@ export const createAuction = (auction) => (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING'});
     var token = window.localStorage.getItem("idToken");
     var formData = new FormData();
-    formData.append('images', auction.images);
-    formData.append('title', auction.title);
-    formData.append('description', auction.description);
-    formData.append('initial_price', auction.initial_price);
-    formData.append('status', auction.status);
-    formData.append('expiration_date', auction.expiration_date);
-    formData.append('category', auction.category);
+    for(var key in auction)
+    {
+        formData.append(key, auction[key]);
+    }
     if (token) {
         var auctionCreate = server + "api/product";
         $.ajax({
@@ -153,10 +150,10 @@ export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
         $.ajax({
             url: addBid,
             type: 'post',
-            dataType: 'json',     
-            data: formData,
-            contentType:false,
-            processData: false, 
+            dataType: 'json',   
+            data: formData,   
+            processData: false,
+            contentType: false,  
             headers: {
                 "x-access-token": token
             },

@@ -24,7 +24,7 @@ export const getApiData = (dispatch, state) => {
 
 export const getAuctions = (dispatch, state) => {
     dispatch({type: 'AUCTIONS_LOADING', [ pendingTask ]: begin});
-    var getAuctions = server + "api/product";
+    var getAuctions = server + "api/products";
     $.getJSON(getAuctions).done(responceData => {
         dispatch({type: 'GET_AUCTIONS', auctions: responceData.data, [ pendingTask ]: end});
         browserHistory.push({pathname: '/map'});
@@ -157,14 +157,10 @@ export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
             data: formData,
             contentType:false,
             processData: false, 
-            // data:qs.parse("product_id=" + product_id+"&bid_value="+bid_value),
-            // data: qs.parse({"product_id":product_id,"bid_value":bid_value}),
             headers: {
-                // 'Content-Type': 'application/json', 
                 "x-access-token": token
             },
             success: function (responceData) {
-                console.log("success");
                 dispatch({type: 'CREATE_BID', bid: responceData.data}); 
             },
             error: function() {
@@ -181,14 +177,18 @@ export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
 
 export const productDetails = (product_id)=> (dispatch, state) => {   
     var product_details = server + "/api/product";
+    var formData = new FormData();
+    formData.append('product_id', product_id);
     $.ajax({
         url: product_details,
         type: 'post',
-        data: product_id,
+        dataType: 'json',     
+        data: formData,
+        contentType:false,
+        processData: false, 
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        dataType: 'json',
         success: function (responceData) {
             dispatch({type: 'GET_PRODUCT', product: responceData.data});
         },
@@ -198,4 +198,3 @@ export const productDetails = (product_id)=> (dispatch, state) => {
         }
     });          
 }
-

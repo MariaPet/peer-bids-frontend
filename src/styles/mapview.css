@@ -1,16 +1,15 @@
 #map {
     height: 700px;
     width: 100%;
-    position: absolute;
+    margin: 0 5px;
+    /* position: absolute; */
 }
 
 .transform-slider {
-    height: 500px;
+    height: 700px;
     width: 450px;
-    overflow: hidden;
     background-color: rgb(255, 255, 255);
     opacity: 0.9;
-    transition: left 2s ease;
 }
 
 .clock-element {
@@ -22,5 +21,10 @@
     font-weight: bold;
     border: 3px solid #8b29a8c0;
     margin: 2px 5px;
+}
+
+#auctionList {
+    height: 90%;
+    overflow-y: scroll;
 }
 

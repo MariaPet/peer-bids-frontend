@@ -18,7 +18,7 @@ import FrontSearch from './containers/FrontSearch';
 import {refreshToken} from './redux/actions/index';
 
 store.dispatch(refreshToken);
-// Create an enhanced history that syncs navigation events with the store
+{/*Create an enhanced history that syncs navigation events with the store*/}
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(

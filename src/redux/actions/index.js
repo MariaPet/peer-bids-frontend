@@ -149,58 +149,57 @@ export const createAuction = (auction) => (dispatch, state) => {
 }
 
 
-export const realtimeBid = (bid_value, product_id)=> (dispatch, state) => {
+export const realtimeBid = (bidData)=> (dispatch, state) => {
+    dispatch({type: 'BID_ACTION_LOADING', [ pendingTask ]: begin});
     var token =  window.localStorage.getItem("idToken");
-    var formData = new FormData();
-    formData.append('product_id', product_id);
-    formData.append('bid_value',bid_value);
     if (token) {
         var addBid = server + "api/bid";         
         $.ajax({
             url: addBid,
             type: 'post',
             dataType: 'json',   
-            data: formData,   
-            processData: false,
-            contentType: false,  
+            data: bidData,     
             headers: {
                 "x-access-token": token
             },
             success: function (responceData) {
-                dispatch({type: 'CREATE_BID', bid: responceData.data}); 
+                dispatch({type: 'CREATE_BID', productOwner: responceData.data, [ pendingTask ]: end}); 
             },
             error: function() {
                 console.log('error with new bid');
-                dispatch({type: 'BID_CREATION_FAILED'})
+                dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end})
             }
         });  
     }
     else {
         console.log("no token identified");
-        dispatch({type: 'BID_CREATION_FAILED'})
+        dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end})
     }
 }
 
-export const productDetails = (product_id)=> (dispatch, state) => {   
-    var product_details = server + "/api/product";
-    var formData = new FormData();
-    formData.append('product_id', product_id);
-    $.ajax({
-        url: product_details,
-        type: 'post',
-        dataType: 'json',     
-        data: formData,
-        contentType:false,
-        processData: false, 
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        success: function (responceData) {
-            dispatch({type: 'GET_PRODUCT', product: responceData.data});
-        },
-        error: function() {
-            console.log("error with getting the product details");
-            dispatch({type: 'PRODUCT_LOADING_FAILED'})
-        }
-    });          
+export const getAuction = (product_id )=> (dispatch, state) => {   
+    var product_details = server + "api/product/" + product_id;
+    dispatch({type: 'BID_ACTION_LOADING', [ pendingTask ]: begin});
+    $.getJSON(product_details).done(responceData => {
+        dispatch({type: 'GET_PRODUCT_DATA', productOwner: responceData.data});
+        browserHistory.push({pathname: '/realtime-bid/' + product_id});
+    }).fail(dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end}));
+    // $.ajax({
+    //     url: product_details,
+    //     type: 'post',
+    //     dataType: 'json',     
+    //     data: formData,
+    //     contentType:false,
+    //     processData: false, 
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     },
+    //     success: function (responceData) {
+    //         dispatch({type: 'GET_PRODUCT', product: responceData.data});
+    //     },
+    //     error: function() {
+    //         console.log("error with getting the product details");
+    //         dispatch({type: 'PRODUCT_LOADING_FAILED'})
+    //     }
+    // });          
 }

@@ -116,8 +116,8 @@ class AuctionPreview extends Component {
                 <Col xs="12">
                     <h1>{this.state.user.username}</h1>
                 </Col>
-                <Col xs='12'>
-                    <ListGroup>
+                <Col xs='12' id="auctionList">
+                    <ListGroup >
                         {auctionItems}
                     </ListGroup>
                 </Col>

@@ -1,7 +1,7 @@
 import React, {Component, Children} from 'react'
 import { browserHistory } from 'react-router'
 import '../styles/mapview.css'
-import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap'
+import {Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Button} from 'reactstrap'
 import { GoogleMap, Circle, withScriptjs, withGoogleMap } from "react-google-maps"
 import Countdown from 'react-countdown-now';
 import {Link} from 'react-router'
@@ -22,7 +22,7 @@ export default class MapView extends Component {
         return (
             <Row>
                 <Col xs="12" md="4">
-                    <AuctionPreview user={this.state.previewedAuctions}/>
+                    <AuctionPreview user={this.state.previewedAuctions} getAuction={this.props.getAuction} loading={this.props.loading} currentUser={this.props.currentUser}/>
                 </Col>
                 <Col xs="12" md="8">
                     <Map 
@@ -106,7 +106,7 @@ class AuctionPreview extends Component {
                 }
             };
             for (var auction in this.state.user.auctions) {
-                auctionItems.push(<AuctionItem key={auction} id={auction} auction={this.state.user.auctions[auction]}>
+                auctionItems.push(<AuctionItem key={auction} id={auction} auction={this.state.user.auctions[auction]} getAuction={this.props.getAuction} loading={this.props.loading} currentUser={this.props.currentUser} >
                     <Countdown key={auction} date={this.state.user.auctions[auction].expiration_date * 1000} 
                     renderer={renderer} />
                 </AuctionItem>);
@@ -145,7 +145,11 @@ class AuctionItem extends Component {
                 <ListGroupItemText>
                     {this.props.auction.description}<br />
                     {this.props.auction.min_price}<br />
-                    <Link to={{pathname:'/realtime-bid/' + this.props.id, state: this.props.auction}}>Place a bid</Link>
+                    {this.props.currentUser ? 
+                    (<Button disabled={this.props.loading} onClick={(e) => this.props.getAuction(this.props.id)}>Place a bid</Button>) :
+                    <span>Log in to start bidding</span>
+                    }
+                    
                     {this.props.children}
                 </ListGroupItemText>
             </ListGroupItem>

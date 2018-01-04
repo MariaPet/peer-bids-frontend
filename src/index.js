@@ -8,12 +8,12 @@ import UserProfile from './containers/UserProfile'
 import NewAuctionForm from './containers/NewAuctionForm'
 import RealtimeBid from './containers/RealtimeBid'
 // import Test from './components/Test';
-import SignUp from './components/SignUp';
-import ApiData from './containers/ApiData';
-import registerServiceWorker from './registerServiceWorker';
+//import SignUp from './components/SignUp';
+//import ApiData from './containers/ApiData';
+//import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import FrontSearch from './containers/FrontSearch';
 import {refreshToken} from './redux/actions/index';

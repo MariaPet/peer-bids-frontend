@@ -56,7 +56,17 @@ class RealtimeBid extends Authorization {
         else this.props.startListening();
     } 
     submitBid() {
-        var bid_value = this.props.finalTranscript;
+        // var bid_value = this.props.finalTranscript;
+        var text = this.props.finalTranscript;
+        var value = text.match(/\d/g);
+        if (value == null){
+            value= 0;
+        } else {
+            value = value.join("");
+        }
+        var bid_value = value ? parseInt(value) : 0;
+        // this.last_value = bid_value;
+
         if (!isNaN(bid_value)) {
             if (this.state.auction.min_price < bid_value){
                 this.props.realtimeBid({bid_value, product_id: this.state.product_id})
@@ -94,7 +104,6 @@ class RealtimeBid extends Authorization {
         }
         if(this.props.productOwner) {
             var bidItems = [];
-            // debugger;
             for (var bid in this.state.auction.bids) {
                 bidItems.push(<BidItem key={bid} bid={this.state.auction.bids[bid]}/>)
             }

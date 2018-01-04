@@ -3,8 +3,8 @@
 .spinner {
     position: fixed;
     top: 150px;
-    right: 0px;
-    left: 0px;
+    right: 0;
+    left: 0;
     margin: 0 auto;
     z-index: 103100;
     color: #00fff2a8;

@@ -18,22 +18,22 @@ export default class UserProfile extends Authorization {
         this.state = {
             tab: "Bids",
             picture: null
-        }
+        };
         this.showTab = this.showTab.bind(this);
         this.onDrop = this.onDrop.bind(this);
     }
     showTab = tabName => e => {
         e.preventDefault();
         this.setState({tab: tabName});
-    }
+    };
     onDrop = picture => {
         this.setState({picture: picture[0]});
-    }
+    };
     render() {
         return (
             <Row>
                 <Col xs="12" md="4" className="d-flex flex-column align-items-center py-4">
-                    <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg?this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />
+                    <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />
                     <span>Name Surname</span>
                 </Col>
                 <Col xs="12" md="8" className="py-4">

@@ -1,0 +1,126 @@
+.top{
+    background-image: url("./../img/squares.png");    
+}
+
+.microphone{
+    margin: 0 auto;
+    width: 50%;
+}
+
+.mic-icon{
+    margin: 0 auto;
+    width: 50%;
+    text-align: center; 
+    padding: 50px 0 50px 0;
+}
+
+.gray-mic{
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 50% !important;
+    transform: translateX(-50%);
+    transition: all 0.2s ease-in-out;
+    animation: ripple 2.0s 0.2s infinite;
+    -webkit-animation: ripple 2.0s 0.2s  infinite;
+}
+
+.gray-mic:hover {
+transform: translateX(-50%) scale(1.05);
+}
+  
+@-webkit-keyframes ripple {
+    25% {
+        box-shadow: 0 0 0 6px #fff,
+                    0 0 0 8px #007bff;
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px #fff,
+                    0 0 0 8px #007bff,
+                    0 0 0 14px #fff,
+                    0 0 2px 16px #888;
+    }
+
+    100% {
+        box-shadow: 0 0 0 6px #fff,
+                    0 0 0 8px #007bff,
+                    0 0 0 14px #fff,
+                    0 0 2px 16px #888,
+                    0 0 0 22px #fff,
+                    0 0 5px 24px #ddd;
+    }
+}
+
+.transcript{
+    text-align: center;
+    margin-top: 50px;
+    width: 50%;
+    color:#007bff;
+    font-weight: 500;
+}
+
+.actual-bids{
+    margin: 0 auto;
+    /* background-image: linear-gradient(to bottom, rgba(62, 62, 70, 0.06), white); */
+    background-color: #fff;
+    border-radius: 7px;
+    width: 80%;
+    height: 350px;
+    -webkit-box-shadow: 1px 3px 2px 0 rgba(62, 62, 70, 0.06);
+    box-shadow:-2px 1px 1px 5px rgba(62, 62, 70, 0.06);
+}
+
+.product-details{
+    display: inline-block;
+    width: 33%;
+    padding: 3%;
+    float: left;
+}
+
+.product-details p span{
+    font-weight: 600;
+    color: #007bff;
+}
+
+.bids{
+    display: inline-block;    
+    width: 33%;
+    padding: 3%;    
+    float: right;
+}
+
+.images{
+    width: 80%;
+    margin: 0 auto;
+    background-image: linear-gradient(to top, rgba(62, 62, 70, 0.19), white);    
+    position:relative;
+    overflow:hidden;
+    padding-bottom: 60px;
+    
+}
+
+.product-image{
+    display: inline-block;
+    width: 33%;
+    padding-left: 15px; 
+    height: 300px;
+}
+  
+.images:before {
+    content:'';
+    background:white;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100px;
+    border-radius:0 0 50% 50%;
+}
+
+.closed-auction{
+    padding: 70px;
+    text-align: center;
+    color: #007bff;
+    font-weight: 400;
+    font-size: 19px;
+}

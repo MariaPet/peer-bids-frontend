@@ -4,19 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
 import MapView from './containers/MapView';
-<<<<<<< HEAD
-import UserProfile from './containers/UserProfile'
-import NewAuctionForm from './containers/NewAuctionForm'
-import RealtimeBid from './containers/RealtimeBid'
-// import Test from './components/Test';
-//import SignUp from './components/SignUp';
-//import ApiData from './containers/ApiData';
-//import registerServiceWorker from './registerServiceWorker';
-import store from './redux/store/config';
-import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-=======
 import UserProfile from './containers/UserProfile';
 import NewAuctionForm from './containers/NewAuctionForm';
 import RealtimeBid from './containers/RealtimeBid';
@@ -27,7 +14,6 @@ import store from './redux/store/config';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
->>>>>>> e12620e91f3569d85742af8b32824c212c857662
 import FrontSearch from './containers/FrontSearch';
 import {refreshToken} from './redux/actions/index';
 

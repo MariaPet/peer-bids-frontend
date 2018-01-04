@@ -20,10 +20,10 @@ export default class FrontSearch extends Component {
         let newState = {};
         newState[key] = value;
         this.setState(newState);
-    }
+    };
     onAddressInput = address => {
         this.setState({postal_code: address});
-    }
+    };
     handleSelect = (address, placeId) => {
         geocodeByAddress(address)
         .then(results => {
@@ -36,7 +36,7 @@ export default class FrontSearch extends Component {
                 }
             });
         });
-    }
+    };
     render() {
         return (
             <div className="d-flex justify-content-center align-content-center">

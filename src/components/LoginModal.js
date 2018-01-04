@@ -8,7 +8,7 @@ export default class LoginModal extends Component {
         this.state = {
             email: "",
             password: ""
-        }
+        };
         this.onInput = this.onInput.bind(this);
     }
 
@@ -18,7 +18,7 @@ export default class LoginModal extends Component {
         let newState = {};
         newState[key] = value;
         this.setState(newState);
-    }
+    };
 
     render() {
         return (
@@ -29,7 +29,7 @@ export default class LoginModal extends Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" disabled={this.props.loading} onClick={(e) => this.props.loginUser(this.state) } >Login</Button>{' '}
-                    <Button color="secondary" disabled={this.props.loading} onClick={this.props.toggleModal}>Cancel</Button>
+                    <Button color="secondary" disabled={this.props.loading} onClick={ this.props.toggleModal }>Cancel</Button>
                 </ModalFooter>
             </Modal>
         );

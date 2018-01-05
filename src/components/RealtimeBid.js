@@ -23,6 +23,10 @@ const last_value = 0;
 class RealtimeBid extends Authorization {
     constructor(props) {
         super(props);
+        var source = new EventSource(this.props.stream)
+        var that = this;
+        source.addEventListener("patch", function(event) {
+            that.props.realtimeUpdate(JSON.parse(event.data))});
         var auction = null;
         var product_id = this.props.params.auction;
         if( this.props.productOwner) 
@@ -42,16 +46,12 @@ class RealtimeBid extends Authorization {
         if (!this.props.productOwner) browserHistory.push({pathname: '/'});
     }
     componentWillReceiveProps(nextProps) {
-        console.log("is listening " + nextProps.listening);
-        console.log("transcript is " + nextProps.transcript);
-        // debugger;
         if(nextProps.productOwner) {
             var auction = nextProps.productOwner.auctions[nextProps.params.auction];
             this.setState({auction});
         }        
     }
     toggleMic() {
-        // debugger;
         if (this.props.listening) this.props.stopListening();
         else this.props.startListening();
     } 
@@ -134,7 +134,7 @@ class RealtimeBid extends Authorization {
                         <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/>
                         <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/>
                         <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/>
-                    </div>                          
+                    </div>                        
                 </div>    
             )
         }

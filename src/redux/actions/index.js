@@ -11,16 +11,6 @@ import {
 const server = 'http://localhost:5000/';
 // const server = 'https://peer-bids-back-end.appspot.com/';
 
-//TODO remove test action getApiData
-export const getApiData = (dispatch, state) => {
-    dispatch({type: 'DATA_LOADING'});
-    var flaskAPI = "https://peer-bids-back-end.appspot.com/api/dummy"
-    // var flaskAPI = "http://localhost:5000/api/dummy";
-    $.getJSON(flaskAPI).done(data => {
-        console.log(data);
-        dispatch({type: 'DATA', data: data})
-    })
-}
 
 export const getAuctions = (searchTerms) => (dispatch, state) => {
     var data = {};
@@ -181,25 +171,14 @@ export const getAuction = (product_id )=> (dispatch, state) => {
     var product_details = server + "api/product/" + product_id;
     dispatch({type: 'BID_ACTION_LOADING', [ pendingTask ]: begin});
     $.getJSON(product_details).done(responceData => {
-        dispatch({type: 'GET_PRODUCT_DATA', productOwner: responceData.data});
+        dispatch({type: 'GET_PRODUCT_DATA', productOwner: responceData.data, stream: responceData.data.stream_url, product_id});
         browserHistory.push({pathname: '/realtime-bid/' + product_id});
-    }).fail(dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end}));
-    // $.ajax({
-    //     url: product_details,
-    //     type: 'post',
-    //     dataType: 'json',     
-    //     data: formData,
-    //     contentType:false,
-    //     processData: false, 
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded'
-    //     },
-    //     success: function (responceData) {
-    //         dispatch({type: 'GET_PRODUCT', product: responceData.data});
-    //     },
-    //     error: function() {
-    //         console.log("error with getting the product details");
-    //         dispatch({type: 'PRODUCT_LOADING_FAILED'})
-    //     }
-    // });          
+    }).fail(dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end}));          
+}
+
+export const realtimeUpdate = (event) => (dispatch, state) => {
+    if (event.path === "/auctions/" + state().realtimeBid.product_id) {
+        dispatch({type: 'REALTIME_UPDATE_OWNER', event: event});
+    }
+    
 }

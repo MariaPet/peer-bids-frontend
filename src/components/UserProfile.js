@@ -27,7 +27,8 @@ export default class UserProfile extends Authorization {
         this.setState({tab: tabName});
     };
     onDrop = picture => {
-        this.setState({picture: picture[0]});
+        this.state['picture'] = picture[0];
+        console.log(this.state)
     };
     render() {
         return (
@@ -39,7 +40,7 @@ export default class UserProfile extends Authorization {
                 <Col xs="12" md="8" className="py-4">
                     <Row>
                     <Col xs="12" md="4" className="py-4">
-                        <Button onClick={(e) => this.props.uploadImage(this.state.picture)}>
+                        <Button onClick={(e) => this.props.uploadImage(this.state)}>
                             Upload Image
                         </Button>
                         <ImageUploader 

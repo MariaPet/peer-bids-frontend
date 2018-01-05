@@ -8,8 +8,8 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
-// const server = 'http://localhost:5000/';
-const server = 'https://peer-bids-back-end.appspot.com/';
+const server = 'http://localhost:5000/';
+// const server = 'https://peer-bids-back-end.appspot.com/';
 
 //TODO remove test action getApiData
 export const getApiData = (dispatch, state) => {
@@ -84,11 +84,12 @@ export const logout = (dispatch, state) => {
     browserHistory.push('/');
 }
 
-export const uploadImage = (picture) => (dispatch, state) => {
+export const uploadImage = (pictureState) => (dispatch, state) => {
+    console.log(pictureState)
     dispatch({type: 'UPLOAD_FILE_LOADING'});
     var token = window.localStorage.getItem("idToken");
     var formData = new FormData();
-    formData.append('profilePic', picture);
+    formData.append('profilePic', pictureState['picture']);
     if (token) {
         var uploadUrl = server + "upload";
         $.ajax({
@@ -98,8 +99,7 @@ export const uploadImage = (picture) => (dispatch, state) => {
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',                
+            headers: {                
                 "x-access-token": token
             },
             dataType: 'json',

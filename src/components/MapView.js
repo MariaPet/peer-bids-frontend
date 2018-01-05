@@ -32,6 +32,7 @@ export default class MapView extends Component {
                         mapElement={<div style={{ height: '100%' }} />}
                         users={this.props.auctions}
                         updatePreview={this.updatePreview}
+                        previewedAuctions={this.state.previewedAuctions}
                     />
                 </Col>   
             </Row>  
@@ -40,22 +41,29 @@ export default class MapView extends Component {
 }
 const Map = withScriptjs(withGoogleMap(props => {
     var densityCircles = [];
+    var bounds = new window.google.maps.LatLngBounds();
     var users = props.users;
     for (var user in users) {
         if (users[user].auctions) {
             if(users[user].latitude && users[user].longitude) {
+                
                 densityCircles.push(
                 <AuctionCircle key={user}
                     center = {{lat: parseFloat(users[user].latitude), lng: parseFloat(users[user].longitude)}}
-                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 80}
+                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 15}
                     user = {users[user]}
-                    updatePreview = {props.updatePreview}/>
-                )
+                    updatePreview = {props.updatePreview}
+                    previewedAuctions={props.previewedAuctions}/>
+                );
+
+                var latLngBound = new window.google.maps.LatLng(users[user].latitude, users[user].longitude);
+                bounds.extend(latLngBound);
             }
         }
+
     }
     return (
-        <GoogleMap defaultZoom={13} defaultCenter={{lat: 50.9, lng: -1.4}}>
+        <GoogleMap ref={mapArea => mapArea && mapArea.fitBounds(bounds)} defaultZoom={13} defaultCenter={{lat: 50.9, lng: -1.4}}>
             {densityCircles}
         </GoogleMap> 
     )
@@ -65,7 +73,8 @@ class AuctionCircle extends Component {
     render() {
         return(
             <Circle center={this.props.center} radius={this.props.radius}
-            onClick = {(e) => {this.props.updatePreview(this.props.user);}}/>
+            onClick = {(e) => {this.props.updatePreview(this.props.user);}}
+            options={{fillColor: this.props.previewedAuctions === this.props.user? "#0069cc" : "#cce6ff"}}/>
         )
     }
 }

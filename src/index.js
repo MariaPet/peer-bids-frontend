@@ -8,7 +8,6 @@ import UserProfile from './containers/UserProfile';
 import NewAuctionForm from './containers/NewAuctionForm';
 import RealtimeBid from './containers/RealtimeBid';
 import SignUp from './components/SignUp';
-import ApiData from './containers/ApiData';
 import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store/config';
 import { Provider } from 'react-redux';

@@ -23,10 +23,6 @@ const last_value = 0;
 class RealtimeBid extends Authorization {
     constructor(props) {
         super(props);
-        var source = new EventSource(this.props.stream)
-        var that = this;
-        source.addEventListener("patch", function(event) {
-            that.props.realtimeUpdate(JSON.parse(event.data))});
         var auction = null;
         var product_id = this.props.params.auction;
         if( this.props.productOwner) 
@@ -36,6 +32,7 @@ class RealtimeBid extends Authorization {
             errorMessage: "",
             bid_value: "",
             product_id,
+            source: null,
             show:true
         };
         // this.onSpeech = this.onSpeech.bind(this);
@@ -44,6 +41,14 @@ class RealtimeBid extends Authorization {
     }
     componentDidMount() {
         if (!this.props.productOwner) browserHistory.push({pathname: '/'});
+        var source = new EventSource(this.props.stream)
+        var that = this;
+        source.addEventListener("patch", function(event) {
+            that.props.realtimeUpdate(JSON.parse(event.data))});
+        this.setState({ source });
+    }
+    componentWillUnmount() {
+        this.state.source.close();
     }
     componentWillReceiveProps(nextProps) {
         if(nextProps.productOwner) {

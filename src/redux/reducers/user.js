@@ -30,6 +30,13 @@ export default function user(state = {currentUser: null, loading: false}, action
                 currentUser: action.user,
                 loading: false
             }
+        case 'PROFILE_IMG_UPDATE':
+        var updatedUser = {...state.currentUser}
+        updatedUser["profileImg"] = action.url
+        return {
+            ...state,
+            currentUser: updatedUser
+        }
         default:
             return state;
     }

@@ -8,8 +8,8 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
-// const server = 'http://localhost:5000/';
-const server = 'https://peer-bids-back-end.appspot.com/';
+const server = 'http://localhost:5000/';
+// const server = 'https://peer-bids-back-end.appspot.com/';
 
 
 export const getAuctions = (searchTerms) => (dispatch, state) => {
@@ -75,7 +75,6 @@ export const logout = (dispatch, state) => {
 }
 
 export const uploadImage = (pictureState) => (dispatch, state) => {
-    console.log(pictureState)
     dispatch({type: 'UPLOAD_FILE_LOADING'});
     var token = window.localStorage.getItem("idToken");
     var formData = new FormData();
@@ -94,7 +93,7 @@ export const uploadImage = (pictureState) => (dispatch, state) => {
             },
             dataType: 'json',
             success: function (responceData) {
-                dispatch({type: 'UPLOAD_FILE', auction: responceData.data});
+                dispatch({type: 'PROFILE_IMG_UPDATE', url: responceData.data.profileImg});
             },
             error: function() {
                 dispatch({type: 'UPLOAD_FILE_FAILED'})

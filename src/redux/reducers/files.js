@@ -4,11 +4,11 @@ export default function files(state = {newFile: null, loading: false}, action) {
         return {...state,
             loading: true
         };
-        case 'UPLOAD_FILE':
-        return {...state,
-            newFile: action.file,
-            loading: false,
-        };
+        // case 'UPLOAD_FILE':
+        // return {...state,
+        //     newFile: action.file,
+        //     loading: false,
+        // };
         case 'UPLOAD_FILE_FAILED':
         return {...state,
             newFile: null,

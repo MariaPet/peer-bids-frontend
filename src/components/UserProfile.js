@@ -28,7 +28,6 @@ export default class UserProfile extends Authorization {
     };
     onDrop = picture => {
         this.state['picture'] = picture[0];
-        console.log(this.state)
     };
     render() {
         return (

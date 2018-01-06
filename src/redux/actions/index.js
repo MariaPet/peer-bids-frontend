@@ -43,9 +43,15 @@ export const login = (credentials) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var loginUser = server + "login";
     $.post(loginUser, credentials, (responceData) => {
-        window.localStorage.setItem("idToken", responceData.token);
-        dispatch({type: 'LOGIN', user: responceData.data.claims, [ pendingTask ]: end});
-        browserHistory.push({pathname: '/', state:{showLoginModal: false}});
+        if (responceData.status && responceData.status.code === 200) {
+            window.localStorage.setItem("idToken", responceData.token);
+            dispatch({type: 'LOGIN', user: responceData.data.claims, [ pendingTask ]: end});
+            browserHistory.push({pathname: '/', state:{showLoginModal: false}});
+        }
+        else {
+            dispatch({type: 'LOGIN_ERROR', message: responceData.msg})
+            dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+        }
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 

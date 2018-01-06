@@ -1,15 +1,21 @@
-export default function user(state = {currentUser: null, loading: false}, action) {
+export default function user(state = {currentUser: null, loading: false, errorMessage: null}, action) {
     switch (action.type) {
         case 'REGISTER':
             return {...state,
                 currentUser: action.user,
-                loading: false
+                loading: false,
+                errorMessage: null
             }
         case 'LOGIN':
             return {...state,
                 currentUser: action.user,
-                loading: false
+                loading: false,
+                errorMessage: null
             }
+        case 'LOGIN_ERROR':
+        return {...state,
+            errorMessage: action.message
+        }
         case 'AUTHENTICATION_FAILED':
             return {...state,
                 currentUser: null,

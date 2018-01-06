@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
-    Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
+    Form, FormGroup, Label, Input, FormFeedback, Row, Col } from 'reactstrap';
 
 export default class LoginModal extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class LoginModal extends Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>SIGN IN</ModalHeader>
                 <ModalBody>
-                    <LoginForm onInput={this.onInput} inputs={this.state} />
+                    <LoginForm onInput={this.onInput} inputs={this.state} errorMessage = {this.props.errorMessage} />
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" disabled={this.props.loading} onClick={(e) => this.props.loginUser(this.state) } >Login</Button>{' '}
@@ -47,13 +47,23 @@ class LoginForm extends Component {
                     <Col sm="12">
                         <FormGroup>
                             <Label for="email">Email</Label>
-                            <Input name="email" id="email" type="email" value={this.props.inputs.email} onChange={this.props.onInput} /> 
+                            {this.props.errorMessage ? 
+                            <Input valid={false} name="email" id="email" type="email" value={this.props.inputs.email} onChange={this.props.onInput} />
+                            : 
+                            <Input name="email" id="email" type="email" value={this.props.inputs.email} onChange={this.props.onInput} />
+                            }
+                            <FormFeedback>Check your email address and try again</FormFeedback>
                         </FormGroup>
                     </Col>
                     <Col sm="12">
                         <FormGroup>
                             <Label for="password">Password</Label>
-                            <Input name="password" id="password" type="password" value={this.props.inputs.password} onChange={this.props.onInput} /> 
+                            {this.props.errorMessage ? 
+                            <Input valid={false} name="password" id="password" type="password" value={this.props.inputs.password} onChange={this.props.onInput} />
+                            : 
+                            <Input name="password" id="password" type="password" value={this.props.inputs.password} onChange={this.props.onInput} />
+                            }
+                            <FormFeedback>Check your password and try again</FormFeedback> 
                         </FormGroup>
                     </Col>
                 </Row>

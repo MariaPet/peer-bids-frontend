@@ -12,6 +12,9 @@ function mapDispatchToProps(credentials) {
 }
 
 export default connect(
-    (state, props) => ({loading: state.user.loading}),
+    (state, props) => ({
+        loading: state.user.loading,
+        errorMessage: state.user.errorMessage
+    }),
     mapDispatchToProps
 )(LoginModal);

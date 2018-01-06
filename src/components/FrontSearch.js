@@ -39,7 +39,7 @@ export default class FrontSearch extends Component {
     };
     render() {
         return (
-            <div className="d-flex justify-content-center align-content-center">
+            <div className="d-flex justify-content-center align-items-center" style={{height: "400px"}}>
                 <div id='searchBox'>
                     <Form>
                         <FormGroup>

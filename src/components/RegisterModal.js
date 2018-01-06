@@ -64,6 +64,18 @@ export default class RegisterModal extends Component {
             this.setState({addressError: "Address coordinates are missing. Please select a valid address."});
             errors = true;
         }
+        if(!this.state.inputs.telephone) {
+            this.setState({telephoneError: "Telephone is required"});
+            errors = true;
+        }
+        else if(this.state.inputs.telephone.length !== 11) {
+            this.setState({telephoneError: "Telephone number should be 11 digits long"});
+            errors = true;
+        }
+        else if (this.state.inputs.telephone.charAt(0) !== "0") {
+            this.setState({telephoneError: "Telephone number should start with 0"});
+            errors = true;
+        }
         if (!errors) {
             this.props.registerUser(this.state.inputs);
         }
@@ -80,6 +92,8 @@ export default class RegisterModal extends Component {
             this.setState({emailError: ""})
             case 'username':
             this.setState({usernameError: ""})
+            case 'telephone':
+            this.setState({telephoneError: ""})
         }
         
         let value = e.target.value;
@@ -211,8 +225,12 @@ export default class RegisterModal extends Component {
                             <Col sm="12" md="6">
                                 <FormGroup>
                                     <Label for="telephone">Phone Number</Label>
+                                    {this.state.telephoneError?
+                                    <Input valid={false} name="telephone" id="telephone" placeholder="Enter your phone number" value={this.state.inputs.telephone} 
+                                    onChange={this.onInput} />:
                                     <Input name="telephone" id="telephone" placeholder="Enter your phone number" value={this.state.inputs.telephone} 
-                                    onChange={this.onInput} />
+                                    onChange={this.onInput} />}
+                                    <FormFeedback>{this.state.telephoneError}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>

@@ -34,8 +34,13 @@ export const registerUser = (user) => (dispatch, state) => {
     dispatch({type: 'AUTHENTICATION_LOADING', [ pendingTask ]: begin});
     var registerUser = server + "signup";
     $.post(registerUser, user, (responceData) => {
-        dispatch({type: 'REGISTER', user: responceData.data, [ pendingTask ]: end});
-        browserHistory.push({pathname: '/', state:{showRegisterModal: false}});
+        if (responceData.status && responceData.status.code === 200) {
+            dispatch({type: 'REGISTER', message: "You have registered successfully! You can now login.", [ pendingTask ]: end});
+            browserHistory.push({pathname: '/', state:{showRegisterModal: false}});
+        }
+        else {
+            dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end})
+        }
     }, "json").fail(() => dispatch({type: 'AUTHENTICATION_FAILED', [ pendingTask ]: end}));
 }
 

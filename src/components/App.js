@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../containers/NavBar';
 import RegisterModal from '../containers/RegisterModal';
 import LoginModal from '../containers/LoginModal';
-//import { Link, browserHistory } from 'react-router'
+import { UncontrolledAlert  } from 'reactstrap'
 import {
   Spinner
 } from 'react-redux-spinner';
@@ -40,19 +40,6 @@ export default class App extends Component {
 
   render() {
     return (
-// export default function App({children}) {
-//   return (
-//     <div>
-//       <header>
-//         <h1>Peer bids</h1>
-//         Links:
-//         {' '}
-//         <Link to="/">Home</Link>
-//         {' '}
-//         <Link to="/test">test</Link>
-// 	    	{' '}
-// 		    <Link to="/signUp">SingUp</Link>
-//       </header>
       <div>
         <header>
           <NavBar 
@@ -60,6 +47,11 @@ export default class App extends Component {
           toggleLoginModal={this.toggleLoginModal}
           />
         </header>
+        {this.props.successMessage?
+        <UncontrolledAlert  color="success">
+        {this.props.successMessage}
+        </UncontrolledAlert >: ""}
+        
         {/*User auth spinner*/}
         <div>
           {this.props.loading ? (
@@ -70,11 +62,11 @@ export default class App extends Component {
         </div>
         {/*Global spinner*/}
         <Spinner>
-            <div id="nprogress">
-              <div className="spinner" role="spinner">
-              </div>
+          <div id="nprogress">
+            <div className="spinner" role="spinner">
             </div>
-          </Spinner>
+          </div>
+        </Spinner>
         <RegisterModal
         modal={this.state.showRegisterModal} 
         toggleModal={this.toggleRegisterModal}

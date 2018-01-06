@@ -5,6 +5,7 @@ export default connect(
     (state, props) => ({
         currentUser: state.user.currentUser,
         loading: state.user.loading,
+        successMessage: state.user.successMessage
     }),
     {}
 )(App);

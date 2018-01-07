@@ -38,3 +38,6 @@
     font-weight: 800;
     font-size: 26px;
 }
+.fileContainer {
+    box-shadow: 0 0 0 0 #fff;
+}

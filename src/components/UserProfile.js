@@ -43,7 +43,7 @@ export default class UserProfile extends Authorization {
         return (
             <Row>
                 <Col xs="12" md="12" className="d-flex flex-column align-items-center py-4" >
-                    <div className=" profile-header" style={{backgroundImage: "url(" +this.props.currentUser.profileImg + ")"}}>
+                    <div className=" profile-header" style={{backgroundImage: "url(" + this.props.currentUser.profileImg + ")"}}>
                         {/* <img className="profile-image" src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage}/>   */}
                     </div>
                     <div className="image-username">                    

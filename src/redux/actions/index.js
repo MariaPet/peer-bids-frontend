@@ -118,8 +118,15 @@ export const createAuction = (auction) => (dispatch, state) => {
     var token = window.localStorage.getItem("idToken");
     var formData = new FormData();
     for(var key in auction)
-    {
-        formData.append(key, auction[key]);
+    {   
+        if(key === "pictures") {
+            for (var i=0; i < auction.pictures.length; i++) {
+                formData.append("photo_url[]", auction.pictures[i]);
+            }
+        }
+        else {
+            formData.append(key, auction[key]);
+        }   
     }
     if (token) {
         var auctionCreate = server + "api/product";
@@ -133,7 +140,6 @@ export const createAuction = (auction) => (dispatch, state) => {
             headers: {
                 "x-access-token": token
             },
-            dataType: 'json',
             success: function (responceData) {
                 dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
             },

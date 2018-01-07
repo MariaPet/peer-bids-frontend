@@ -136,9 +136,12 @@ class RealtimeBid extends Authorization {
                         <ProductDetails auction={this.state.auction} />                                 
                     </div>  
                     <div className="images">
-                        <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/>
-                        <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/>
-                        <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/>
+                        {/* <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/> */}
+                        {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/> */}
+                        {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/> */}
+                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(0).jpg"} />
+                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(1).jpg"} />
+                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(2).jpg"} />
                     </div>                        
                 </div>    
             )

@@ -10,7 +10,7 @@ import {
     Button
 } from 'reactstrap'
 import ImageUploader from 'react-images-upload';
-import noUserImage from '../img/no-user-image.gif'
+import noUserImage from '../img/no-user-image.gif';
 
 export default class UserProfile extends Authorization {
     constructor(props) {
@@ -27,25 +27,34 @@ export default class UserProfile extends Authorization {
         this.setState({tab: tabName});
     };
     onDrop = picture => {
+        
         this.state['picture'] = picture[0];
+        this.props.uploadImage(this.state);
+        this.hidePreview();
     };
+    hidePreview = ()=>{
+        const uploader = document.getElementById("profilePhoto");
+        const preview = uploader.getElementsByClassName("uploadPicturesWrapper");
+        console.log(uploader, preview);
+        for(let i =0; i< preview.length; i++){
+            preview[i].style.display="none";
+        }
+    }
     render() {
         return (
             <Row>
                 <Col xs="12" md="4" className="d-flex flex-column align-items-center py-4">
                     <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />
                     <span>Name Surname</span>
+                    
                 </Col>
-                <Col xs="12" md="8" className="py-4">
+                <Col xs="12" md="8" className="py-4 " id="profilePhoto">
                     <Row>
                     <Col xs="12" md="4" className="py-4">
-                        <Button onClick={(e) => this.props.uploadImage(this.state)}>
-                            Upload Image
-                        </Button>
+               
                         <ImageUploader 
-                            withPreview={false}
                             withIcon={false}
-                            buttonText='Select profile pic'
+                            buttonText='Change profile image'
                             onChange={(file) => this.onDrop(file)}
                             imgExtension={['.jpg', '.gif', '.png', '.gif']}
                             maxFileSize={5242880}

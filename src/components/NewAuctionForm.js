@@ -57,6 +57,8 @@ export default class NewAuctionForm extends Authorization {
             this.setState({categoryError: "category is required"});
             errors = true;
         }
+        console.log("here we are", errors, this.state)
+        console.log(this)
         if (!errors) {
             this.props.createAuction({
                 pictures: this.state.pictures,
@@ -70,11 +72,13 @@ export default class NewAuctionForm extends Authorization {
         }
     }
     onDrop = (image) => {
+        console.log(image)
         this.setState({
-            pictures: this.state.pictures.concat(image),
+            pictures: [...image],
             picturesError: ""
         });
     }
+    
     onInput = e => {
         let key = e.target.name;
         switch(key) {

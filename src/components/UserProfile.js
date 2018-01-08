@@ -6,8 +6,7 @@ import {
     Card,
     CardHeader,
     CardBody,
-    CardText,
-    Button
+    CardText
 } from 'reactstrap'
 import ImageUploader from 'react-images-upload';
 import noUserImage from '../img/no-user-image.gif';
@@ -20,18 +19,16 @@ export default class UserProfile extends Authorization {
             tab: "Bids",
             picture: null
         };
-        this.showTab = this.showTab.bind(this);
         this.onDrop = this.onDrop.bind(this);
+        this.header_image =  this.props.currentUser.profileImg ? this.props.currentUser.profileImg : noUserImage;
     }
-    showTab = tabName => e => {
-        e.preventDefault();
-        this.setState({tab: tabName});
-    };
+//when user uploads new profile image, set the picture to state and hide the preview of the image
     onDrop = picture => {        
         this.state['picture'] = picture[0];
         this.props.uploadImage(this.state);
         this.hidePreview();
     };
+//hide the image preview. This preview is realised automatically by the ImageUploader component
     hidePreview = ()=>{
         const uploader = document.getElementById("profilePhoto");
         const preview = uploader.getElementsByClassName("uploadPicturesWrapper");
@@ -43,17 +40,16 @@ export default class UserProfile extends Authorization {
         return (
             <Row>
                 <Col xs="12" md="12" className="d-flex flex-column align-items-center py-4" >
-                    <div className=" profile-header" style={{backgroundImage: "url(" + this.props.currentUser.profileImg + ")"}}>
-                        {/* <img className="profile-image" src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage}/>   */}
+                    <div className=" profile-header" style={{backgroundImage: "url(" + this.header_image + ")"}}>
                     </div>
                     <div className="image-username">                    
-                    <img className="profile-image" style={{width: "250px", "height": "250px", display: "block"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />  
-                    <span className="username">{this.props.currentUser.username}</span> 
+                        <img className="profile-image" style={{width: "250px", "height": "250px", display: "block"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile Image missing." className="rounded-circle" />  
+                    <   span className="username">{this.props.currentUser.username}</span> 
                     </div>                   
                 </Col>
-                <Col xs="12" md="8" className="py-4 " id="profilePhoto">
+                <Col sm="12" md={{ size: 8, offset: 2 }}  id="profilePhoto" className="py-4 ">
                     <Row>
-                        <Col xs="12" md="12" className="py-4">                
+                        <Col sm="12" md={{ size: 8, offset: 2 }}>
                             <ImageUploader 
                                 withIcon={false}
                                 buttonText='Change profile image'
@@ -69,8 +65,8 @@ export default class UserProfile extends Authorization {
                                 <CardBody>
                                 {this.props.currentUser ? 
                                     <CardText>
-                                        Username: {this.props.currentUser.username} <br />
-                                        Email:  {this.props.currentUser.email} <br />
+                                        Username:{this.props.currentUser.username} <br />
+                                        Email:{this.props.currentUser.email} <br />
                                         Telephone: {this.props.currentUser.telephone} <br />
                                         Address: {this.props.currentUser.street}, {this.props.currentUser.city}, {this.props.currentUser.postal_code} <br />
                                     </CardText>
@@ -84,54 +80,22 @@ export default class UserProfile extends Authorization {
                         <Col xs="12" className="py-4">
                             <Card>
                                 <CardHeader>
-                                    Activity
-                                    <ul className="nav nav-tabs card-header-tabs">
-                                        <li className="nav-item">
-                                            <a className={this.state.tab === "Bids" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Bids")}>Won Auctions</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className={this.state.tab === "Auctions" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Auctions")}>My Auctions</a>
-                                        </li>
-                                    </ul>
+                                    My Auctions
                                 </CardHeader>
-                                <CardBody>
-                                    {
-                                        this.state.tab === "Bids" ? 
-                                        (<Bids />) : 
-                                        (<Auctions />)
-                                    }
+                                <CardBody>                                                                    
+                                    <ul>
+                                        {
+                                            Object.keys(this.props.currentUser.auctions).map((key,index)=> {
+                                            return <li key={index}>{this.props.currentUser.auctions[key].title}  - £{this.props.currentUser.auctions[key].min_price}</li>
+                                            })
+                                        }
+                                    </ul>
                                 </CardBody>
                             </Card>
                         </Col>
                     </Row>
                 </Col>
             </Row>
-        );
-    }
-}
-
-class Bids extends Component {
-    /*constructor(props) {
-        super(props)
-    }*/
-    render() {
-        return (
-            <div>
-                Won Auctions
-            </div>
-        );
-    }
-}
-
-class Auctions extends Component {
-    /*constructor(props) {
-        super(props)
-    }*/
-    render() {
-        return (
-            <div>
-                Auctions
-            </div>
         );
     }
 }

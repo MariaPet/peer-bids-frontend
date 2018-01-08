@@ -3,7 +3,7 @@ import Authorization from './Authorization'
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import SpeechRecognition from 'react-speech-recognition';
-import { Button, Form, Input} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Row, Col, Button, Form, Input, CardSubtitle, ListGroup, ListGroupItem, ListGroupItemText} from 'reactstrap';
 import microphone from '../img/microphone-icon.png';
 import '../styles/realtimeBid.css';
 import { realtimeBid } from '../redux/actions/index';
@@ -32,8 +32,7 @@ class RealtimeBid extends Authorization {
             errorMessage: "",
             bid_value: "",
             product_id,
-            source: null,
-            show:true
+            source: null
         };
         // this.onSpeech = this.onSpeech.bind(this);
         this.toggleMic = this.toggleMic.bind(this);
@@ -98,54 +97,51 @@ class RealtimeBid extends Authorization {
 
         if (!browserSupportsSpeechRecognition) {
             return null
-        }   
-        var style = {backgroundColor:"transparent"};
-        var style1 = {backgroundColor:"#fff"};
-
-        if (this.state.show == true) {
-            style.display = 'block';
-            style1.display = 'none';             
-        } else {
-            style.display = 'none';
-            style1.display = 'block';      
-        }
+        }  
         if(this.props.productOwner) {
             var bidItems = [];
             for (var bid in this.state.auction.bids) {
                 bidItems.push(<BidItem key={bid} bid={this.state.auction.bids[bid]}/>)
             }
             return (
-                <div className="top">                   
-                    <div className="microphone">
-                        <div className="mic-icon" >                        
-                            {/* <Input  style={style1} type = "image" alt="Microphone-Off" className="gray-mic" name = "bid_value"  value= { transcript } onClick = { this.onSpeech } src={microphone} /> */}
-                            <img  onClick={this.toggleMic} style={style} alt="Microphone-On" className="gray-mic" src={microphone} />
-                            <p style={style1} > Your last offer: {this.last_value ? this.last_value : "£0"}</p>   
-                            <p style={style}>{this.props.listening? "Microphone ON": "Microphone OFF"} </p>
-                            <div>Your bid is: { this.props.transcript }</div>
-                            <div>
-                                <Button onClick={this.props.resetTranscript}>Reset Bid</Button> 
-                                <Button onClick={this.submitBid}>Submit Bid</Button>
-                            </div>
+                <Row className="top">                   
+                    <Col xs="12" className="d-flex justify-content-center py-5">                      
+                        <img  onClick={this.toggleMic} style={{backgroundColor:"transparent", width:"150px", height:"150px"}} alt="Microphone-On" className="gray-mic" src={microphone} />  
+                    </Col>
+                    <Col xs="12" className="d-flex justify-content-center">
+                        <p>{this.props.listening? "Microphone ON": "Microphone OFF"} </p>
+                    </Col>
+                    <Col xs="12" className="d-flex flex-column align-items-center ">
+                        <h3> Current price: {this.state.auction.min_price} </h3>   
+                        
+                        <div>Your bid is: { this.props.transcript }</div>
+                        <div>
+                            <Button onClick={this.props.resetTranscript}>Reset Bid</Button>{' '} 
+                            <Button color="primary" onClick={this.submitBid}>Submit Bid</Button>
                         </div>
-                    </div>            
-                    <div className="actual-bids">
-                        <div className="bids">                       
-                            <ul>
+                    </Col> 
+                    <Col xs="12" className="actual-bids mt-5">  
+                    <Row className="scrolledList">  
+                        <Col xs="6">                
+                            <ProductDetails username={this.props.productOwner.username} auction={this.state.auction} />                                 
+                        </Col>       
+                        <Col xs="6">
+                            <h2>Other Bids</h2>
+                            <ListGroup>                       
                                 {bidItems.length > 0 ? bidItems : "No bids yet"}
-                            </ul>
-                        </div>                
-                        <ProductDetails auction={this.state.auction} />                                 
-                    </div>  
-                    <div className="images">
+                            </ListGroup>
+                        </Col>  
+                    </Row>
+                    </Col>
+                    {/* <div className="images"> */}
                         {/* <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/> */}
                         {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/> */}
                         {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/> */}
-                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(0).jpg"} />
-                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(1).jpg"} />
-                        <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(2).jpg"} />
-                    </div>                        
-                </div>    
+                        {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(0).jpg"} /> */}
+                        {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(1).jpg"} /> */}
+                        {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(2).jpg"} /> */}
+                    {/* </div>                         */}
+                </Row>    
             )
         }
         else {
@@ -164,21 +160,39 @@ class ProductDetails extends Component {
     render() {
         var auction = this.props.auction;
         return (
-            <div className="product-details">
-                <p><span>Current price: </span>{ auction.min_price}</p>
-                <p><span>Category: </span>{ auction.category ? auction.category : " no category"}</p>
-                <p><span>Product name: </span>{ auction.title}</p>
-                <p><span>Product Details: </span>{ auction.description}</p>
-                <p><span>Condition: </span>{ auction.status}</p>
-            </div>
+           
+            <Card>
+            {/* <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" /> */}
+            <CardBody>
+                <CardTitle>{auction.title}</CardTitle>
+                <CardSubtitle>By {this.props.username}</CardSubtitle>
+                <CardText>
+                    <span>Category: </span>{ auction.category ? auction.category : " no category"} <br />
+                    <span>Product Details: </span>{ auction.description} <br />
+                    <span>Condition: </span>{ auction.status} <br />
+                </CardText>
+            </CardBody>
+            </Card>
+           
         );
     }
 }
 
 class BidItem extends Component {
     render() {
+        var date = new Date(this.props.bid.timestamp*1000)
+        var min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+        var sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        // var date = moment.unix(1466760005).format("DD-MM-YYYY HH:mm:ss");
         return (
-            <li><span>{this.props.bid.username}: </span> {this.props.bid.bid_value}</li>
+            <ListGroupItem>
+                <ListGroupItemText>
+                {date.getDate() + "/" + date.getMonth() + "/" + date.getYear() +
+                 " " + date.getHours() + ":" + min + ":" +
+                 sec} <br />
+                {this.props.bid.username}: {this.props.bid.bid_value} £
+                </ListGroupItemText>
+            </ListGroupItem>
         );
     }
 }

@@ -50,7 +50,7 @@ const Map = withScriptjs(withGoogleMap(props => {
                 densityCircles.push(
                 <AuctionCircle key={user}
                     center = {{lat: parseFloat(users[user].latitude), lng: parseFloat(users[user].longitude)}}
-                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 15}
+                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 50}
                     user = {users[user]}
                     updatePreview = {props.updatePreview}
                     previewedAuctions={props.previewedAuctions}/>
@@ -125,7 +125,7 @@ class AuctionPreview extends Component {
                 <Col xs="12">
                     <h1>{this.state.user.username}</h1>
                 </Col>
-                <Col xs='12' id="auctionList">
+                <Col xs='12' id="auctionList" className="scrolledList">
                     <ListGroup >
                         {auctionItems}
                     </ListGroup>
@@ -153,7 +153,7 @@ class AuctionItem extends Component {
                 <ListGroupItemHeading>{this.props.auction.title}</ListGroupItemHeading>
                 <ListGroupItemText>
                     {this.props.auction.description}<br />
-                    {this.props.auction.min_price}<br />
+                    {this.props.auction.min_price} £<br />
                     {this.props.currentUser ? 
                     (<Button disabled={this.props.loading} onClick={(e) => this.props.getAuction(this.props.id)}>Place a bid</Button>) :
                     <span>Log in to start bidding</span>

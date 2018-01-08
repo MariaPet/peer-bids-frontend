@@ -194,7 +194,7 @@ class BidItem extends Component {
         return (
             <ListGroupItem>
                 <ListGroupItemText>
-                {date.getDate() + "/" + date.getMonth() + "/" + date.getYear() +
+                {date.getUTCDate() + "/" + (date.getUTCMonth() + 1) + "/" + date.getUTCFullYear() +
                  " " + date.getHours() + ":" + min + ":" +
                  sec} <br />
                 {this.props.bid.username}: {this.props.bid.bid_value} £

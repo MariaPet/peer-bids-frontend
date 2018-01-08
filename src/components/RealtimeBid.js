@@ -103,6 +103,10 @@ class RealtimeBid extends Authorization {
             for (var bid in this.state.auction.bids) {
                 bidItems.push(<BidItem key={bid} bid={this.state.auction.bids[bid]}/>)
             }
+            var images = [];
+            for (var img_key in this.state.auction.images) {
+                images.push(<img key={img_key} className="product-image" src={this.state.auction.images[img_key]} />);
+            }
             return (
                 <Row className="top">                   
                     <Col xs="12" className="d-flex justify-content-center py-5">                      
@@ -133,14 +137,17 @@ class RealtimeBid extends Authorization {
                         </Col>  
                     </Row>
                     </Col>
-                    {/* <div className="images"> */}
+                    <Col xs="12">
+                    <div className="images">
+                        {images}
                         {/* <img className="product-image" src="http://www.ikea.com/ms/media/seorange/20171/20143_txca01a_cushion_cushion_covers_PH138030.jpg"/> */}
                         {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/breakout/ikea-skogsnava-cushion-cover__1364338769199-s31.jpg"/> */}
                         {/* <img className="product-image" src="http://www.ikea.com/gb/en/images/gb-img-fy15/ikea-rodarv-cushion-40x65__1364439875500-s31.jpg"/> */}
                         {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(0).jpg"} /> */}
                         {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(1).jpg"} /> */}
                         {/* <img className="product-image" src={"gs://cloudappdevproject.appspot.com/products/%2F" + this.product_id + "/(2).jpg"} /> */}
-                    {/* </div>                         */}
+                    </div>  
+                    </Col>                      
                 </Row>    
             )
         }

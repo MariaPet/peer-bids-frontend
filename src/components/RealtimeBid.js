@@ -39,8 +39,10 @@ class RealtimeBid extends Authorization {
         this.toggleMic = this.toggleMic.bind(this);
         this.submitBid = this.submitBid.bind(this);
     }
+    componentWillMount() {
+        if (this.props.params.auction === "null" || !this.props.productOwner) browserHistory.push({pathname: '/'});
+    }
     componentDidMount() {
-        if (!this.props.productOwner) browserHistory.push({pathname: '/'});
         var source = new EventSource(this.props.stream)
         var that = this;
         source.addEventListener("patch", function(event) {
@@ -48,7 +50,7 @@ class RealtimeBid extends Authorization {
         this.setState({ source });
     }
     componentWillUnmount() {
-        this.state.source.close();
+        if (this.state.source) this.state.source.close();
     }
     componentWillReceiveProps(nextProps) {
         if(nextProps.productOwner) {

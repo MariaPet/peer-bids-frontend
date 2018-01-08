@@ -24,9 +24,15 @@ export default function bid(state = {product_id: null, productOwner: null, loadi
         return {...state,
             source: action.source
         }
-        case 'REALTIME_UPDATE_OWNER':
+        case 'REALTIME_UPDATE_PRICE':
         var updateOwner = {...state.productOwner}
         updateOwner['auctions'][state.product_id]['min_price'] = action.event.data.min_price
+        return {...state,
+            productOwner: updateOwner
+        }
+        case 'REALTIME_UPDATE_BIDS':
+        var updateOwner = {...state.productOwner}
+        updateOwner['auctions'][state.product_id]['bids'][action.bidId] = action.event.data
         return {...state,
             productOwner: updateOwner
         }

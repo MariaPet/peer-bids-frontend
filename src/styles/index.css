@@ -6,3 +6,8 @@ body {
     z-index: 1070 !important;
     background-color: white;
 }
+
+.scrolledList {
+    height: 90%;
+    overflow-y: scroll;
+}

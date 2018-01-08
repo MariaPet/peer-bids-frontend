@@ -15,8 +15,8 @@
 }
 
 .gray-mic{
-    margin: 0 auto;
-    width: 50%;
+    /* margin: 0 auto; */
+    /* width: 50%; */
     border-radius: 50% !important;
     transform: translateX(-50%);
     transition: all 0.2s ease-in-out;
@@ -60,12 +60,13 @@ transform: translateX(-50%) scale(1.05);
 }
 
 .actual-bids{
-    margin: 0 auto;
+    /* margin: 0 auto; */
     /* background-image: linear-gradient(to bottom, rgba(62, 62, 70, 0.06), white); */
     background-color: #fff;
     border-radius: 7px;
     width: 80%;
-    height: 350px;
+    max-height: 500px;
+    /* height: 350px; */
     -webkit-box-shadow: 1px 3px 2px 0 rgba(62, 62, 70, 0.06);
     box-shadow:-2px 1px 1px 5px rgba(62, 62, 70, 0.06);
 }

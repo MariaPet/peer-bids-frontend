@@ -84,10 +84,11 @@ export default class UserProfile extends Authorization {
                                 </CardHeader>
                                 <CardBody>                                                                    
                                     <ul>
-                                        {
+                                        {this.props.currentUser.auctions?
                                             Object.keys(this.props.currentUser.auctions).map((key,index)=> {
                                             return <li key={index}>{this.props.currentUser.auctions[key].title}  - £{this.props.currentUser.auctions[key].min_price}</li>
-                                            })
+                                            }):
+                                            <span>You don't have any auctions yet</span>
                                         }
                                     </ul>
                                 </CardBody>

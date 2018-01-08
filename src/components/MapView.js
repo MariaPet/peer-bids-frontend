@@ -68,7 +68,7 @@ const Map = withScriptjs(withGoogleMap(props => {
         </GoogleMap> 
     )
 }))
-// display the auctions on the Map
+// Display the auctions on the Map
 class AuctionCircle extends Component {
     render() {
         return(
@@ -146,7 +146,7 @@ class AuctionPreview extends Component {
         )
     }
 }
-//This class is for display the item's information inside specific auction with realtime bidding feature (only for authorized users)  
+//Display the item's information inside specific auction with realtime bidding feature (only for authorized users)  
 class AuctionItem extends Component {
     render() {
         return(

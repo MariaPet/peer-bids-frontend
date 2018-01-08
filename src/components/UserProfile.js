@@ -13,8 +13,7 @@ import ImageUploader from 'react-images-upload';
 import noUserImage from '../img/no-user-image.gif';
 import '../styles/user.css';
 
-// This class is to display the profile page of the users with his/her personal information along with activities made by user (Auctions or bids)
-// through this page users can also edit the profile image
+// This class is to display the profile page of the users with his/her personal information along with activities made by user (created auctions or won auctions)
 export default class UserProfile extends Authorization {
     constructor(props) {
         super(props);
@@ -112,7 +111,7 @@ export default class UserProfile extends Authorization {
     }
 }
 
-// To display the bids made by users
+// Display the auctions that user already bid and won on it
 class Bids extends Component {
     /*constructor(props) {
         super(props)
@@ -126,6 +125,7 @@ class Bids extends Component {
     }
 }
 
+// Diplay the auctions created by the user
 class Auctions extends Component {
     /*constructor(props) {
         super(props)

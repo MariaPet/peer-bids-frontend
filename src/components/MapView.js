@@ -44,13 +44,13 @@ const Map = withScriptjs(withGoogleMap(props => {
     var bounds = new window.google.maps.LatLngBounds();
     var users = props.users;
     for (var user in users) {
-        if (users[user].auctions) {
+        if (users[user].auctions && Object.keys(users[user].auctions).length > 0) {
             if(users[user].latitude && users[user].longitude) {
                 
                 densityCircles.push(
                 <AuctionCircle key={user}
                     center = {{lat: parseFloat(users[user].latitude), lng: parseFloat(users[user].longitude)}}
-                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 50}
+                    radius = {Math.sqrt(Object.keys(users[user].auctions).length) * 80}
                     user = {users[user]}
                     updatePreview = {props.updatePreview}
                     previewedAuctions={props.previewedAuctions}/>

@@ -8,8 +8,8 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
-const server = 'http://localhost:5000/';
-// const server = 'https://peer-bids-back-end.appspot.com/';
+// const server = 'http://localhost:5000/';
+const server = 'https://peer-bids-back-end.appspot.com/';
 
 
 export const getAuctions = (searchTerms) => (dispatch, state) => {
@@ -137,6 +137,7 @@ export const createAuction = (auction) => (dispatch, state) => {
             enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
+            dataType: 'json',
             headers: {
                 "x-access-token": token
             },
@@ -168,6 +169,7 @@ export const realtimeBid = (bidData)=> (dispatch, state) => {
             headers: {
                 "x-access-token": token
             },
+            dataType: 'json',
             success: function (responceData) {
                 dispatch({type: 'CREATE_BID', productOwner: responceData.data, [ pendingTask ]: end}); 
             },
@@ -186,15 +188,32 @@ export const realtimeBid = (bidData)=> (dispatch, state) => {
 export const getAuction = (product_id )=> (dispatch, state) => {   
     var product_details = server + "api/product/" + product_id;
     dispatch({type: 'BID_ACTION_LOADING', [ pendingTask ]: begin});
-    $.getJSON(product_details).done(responceData => {
-        dispatch({type: 'GET_PRODUCT_DATA', productOwner: responceData.data, stream: responceData.data.stream_url, product_id});
-        browserHistory.push({pathname: '/realtime-bid/' + product_id});
-    }).fail(dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end}));          
+    var token =  window.localStorage.getItem("idToken");
+    if (token) {
+        $.ajax({
+            url: product_details,
+            type: 'get',
+            dataType: 'json',
+            success: function (responceData) {
+                dispatch({type: 'GET_PRODUCT_DATA', productOwner: responceData.data, stream: responceData.data.stream_url, product_id, [ pendingTask ]: end});
+                browserHistory.push({pathname: '/realtime-bid/' + product_id});
+            },
+            error: function() {
+                dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end})
+            }
+        });
+    }
+    else {
+        dispatch({type: 'BID_ACTION_FAILED', [ pendingTask ]: end})
+    }          
 }
 
 export const realtimeUpdate = (event) => (dispatch, state) => {
     if (event.path === "/auctions/" + state().realtimeBid.product_id) {
-        dispatch({type: 'REALTIME_UPDATE_OWNER', event: event});
+        dispatch({type: 'REALTIME_UPDATE_PRICE', event: event});
+    }
+    if (event.path.indexOf("/auctions/" + state().realtimeBid.product_id + '/bids/') === 0 ) {
+        dispatch({type: 'REALTIME_UPDATE_BIDS', event: event, bidId: event.path.split('/')[4]});
     }
     
 }

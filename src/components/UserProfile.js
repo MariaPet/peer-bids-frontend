@@ -11,6 +11,7 @@ import {
 } from 'reactstrap'
 import ImageUploader from 'react-images-upload';
 import noUserImage from '../img/no-user-image.gif';
+import '../styles/user.css';
 
 // This class is to display the profile page of the users with his/her personal information along with activities made by user (Auctions or bids)
 // through this page users can also edit the profile image
@@ -28,8 +29,7 @@ export default class UserProfile extends Authorization {
         e.preventDefault();
         this.setState({tab: tabName});
     };
-    onDrop = picture => {
-        
+    onDrop = picture => {        
         this.state['picture'] = picture[0];
         this.props.uploadImage(this.state);
         this.hidePreview();
@@ -37,72 +37,74 @@ export default class UserProfile extends Authorization {
     hidePreview = ()=>{
         const uploader = document.getElementById("profilePhoto");
         const preview = uploader.getElementsByClassName("uploadPicturesWrapper");
-        console.log(uploader, preview);
-        for(let i =0; i< preview.length; i++){
+        for(let i = 0; i< preview.length; i++){
             preview[i].style.display="none";
         }
     }
     render() {
         return (
             <Row>
-                <Col xs="12" md="4" className="d-flex flex-column align-items-center py-4">
-                    <img style={{height:"200px", width:"200px"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />
-                    <span>{this.props.currentUser.username}</span>
-                    
+                <Col xs="12" md="12" className="d-flex flex-column align-items-center py-4" >
+                    <div className=" profile-header" style={{backgroundImage: "url(" + this.props.currentUser.profileImg + ")"}}>
+                        {/* <img className="profile-image" src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage}/>   */}
+                    </div>
+                    <div className="image-username">                    
+                    <img className="profile-image" style={{width: "250px", "height": "250px", display: "block"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile" className="rounded-circle" />  
+                    <span className="username">{this.props.currentUser.username}</span> 
+                    </div>                   
                 </Col>
                 <Col xs="12" md="8" className="py-4 " id="profilePhoto">
                     <Row>
-                    <Col xs="12" md="4" className="py-4">
-               
-                        <ImageUploader 
-                            withIcon={false}
-                            buttonText='Change profile image'
-                            onChange={(file) => this.onDrop(file)}
-                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                            maxFileSize={5242880}
-                            label=""
-                        />
-                    </Col>
-                    <Col xs="12" md="8" className="py-4">
-                        <Card className="mb-2">
-                            <CardHeader>Personal Information</CardHeader>
-                            <CardBody>
-                            {this.props.currentUser ? 
-                                <CardText>
-                                    Username: {this.props.currentUser.username} <br />
-                                    Email: {this.props.currentUser.email} <br />
-                                    Telephone: {this.props.currentUser.telephone} <br />
-                                    Address: {this.props.currentUser.street}, {this.props.currentUser.city}, {this.props.currentUser.postal_code} <br />
-                                </CardText>
-                            :
-                                <CardText>
-                                </CardText>
-                            }
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col xs="12" className="py-4">
-                        <Card>
-                            <CardHeader>
-                                Activity
-                                <ul className="nav nav-tabs card-header-tabs">
-                                    <li className="nav-item">
-                                        <a className={this.state.tab === "Bids" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Bids")}>Bids</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className={this.state.tab === "Auctions" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Auctions")}>Auctions</a>
-                                    </li>
-                                </ul>
-                            </CardHeader>
-                            <CardBody>
-                                {
-                                    this.state.tab === "Bids" ? 
-                                    (<Bids />) : 
-                                    (<Auctions />)
+                        <Col xs="12" md="12" className="py-4">                
+                            <ImageUploader 
+                                withIcon={false}
+                                buttonText='Change profile image'
+                                onChange={(file) => this.onDrop(file)}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                maxFileSize={5242880}
+                                label=""
+                            />
+                        </Col>
+                        <Col xs="12" md="12" className="py-4">
+                            <Card className="mb-2">
+                                <CardHeader>Personal Information</CardHeader>
+                                <CardBody>
+                                {this.props.currentUser ? 
+                                    <CardText>
+                                        Username: {this.props.currentUser.username} <br />
+                                        Email:  {this.props.currentUser.email} <br />
+                                        Telephone: {this.props.currentUser.telephone} <br />
+                                        Address: {this.props.currentUser.street}, {this.props.currentUser.city}, {this.props.currentUser.postal_code} <br />
+                                    </CardText>
+                                :
+                                    <CardText>
+                                    </CardText>
                                 }
-                            </CardBody>
-                        </Card>
-                    </Col>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col xs="12" className="py-4">
+                            <Card>
+                                <CardHeader>
+                                    Activity
+                                    <ul className="nav nav-tabs card-header-tabs">
+                                        <li className="nav-item">
+                                            <a className={this.state.tab === "Bids" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Bids")}>Won Auctions</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className={this.state.tab === "Auctions" ? "nav-link active": "nav-link"} href="#" onClick={this.showTab("Auctions")}>My Auctions</a>
+                                        </li>
+                                    </ul>
+                                </CardHeader>
+                                <CardBody>
+                                    {
+                                        this.state.tab === "Bids" ? 
+                                        (<Bids />) : 
+                                        (<Auctions />)
+                                    }
+                                </CardBody>
+                            </Card>
+                        </Col>
                     </Row>
                 </Col>
             </Row>
@@ -118,7 +120,7 @@ class Bids extends Component {
     render() {
         return (
             <div>
-                Bids
+                Won Auctions
             </div>
         );
     }

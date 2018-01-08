@@ -5,7 +5,7 @@
   "homepage": "./",
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
-    "firebase": "^4.8.1",
+    "firebase": "^3.5.2",
     "install": "^0.10.1",
     "jquery": "^3.2.1",
     "npm": "^5.5.1",
@@ -15,6 +15,7 @@
     "react": "^16.2.0",
     "react-countdown-now": "^1.2.0",
     "react-dom": "^16.2.0",
+    "react-firebase-file-uploader": "^2.4.1",
     "react-firebase-image-uploader": "^1.1.0",
     "react-google-maps": "^9.4.3",
     "react-images-upload": "^1.1.1",

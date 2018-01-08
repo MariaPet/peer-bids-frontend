@@ -4,6 +4,7 @@ import { Container, FormFeedback, Button, Form, FormGroup, Label, InputGroup, In
 import ImageUploader from 'react-images-upload';
 
 
+// only for authorized users 
 export default class NewAuctionForm extends Authorization {
     constructor(props) {
         super(props);
@@ -137,12 +138,12 @@ export default class NewAuctionForm extends Authorization {
                     {this.state.titleError? 
                     <Input name="title" valid={false}
                     id="title" 
-                    placeholder="Enter a item name" 
+                    placeholder="Enter an item name" 
                     value={this.state.title} 
                     onChange={this.onInput}/>:
                     <Input name="title" 
                     id="title" 
-                    placeholder="Enter a item name" 
+                    placeholder="Enter an item name" 
                     value={this.state.title} 
                     onChange={this.onInput}/>
                     }

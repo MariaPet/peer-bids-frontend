@@ -19,7 +19,7 @@ const propTypes = {
 }
 const last_value = 0;
 
-
+// only for authorized users 
 class RealtimeBid extends Authorization {
     constructor(props) {
         super(props);

@@ -68,7 +68,7 @@ const Map = withScriptjs(withGoogleMap(props => {
         </GoogleMap> 
     )
 }))
-
+// display the auctions on the Map
 class AuctionCircle extends Component {
     render() {
         return(
@@ -78,6 +78,7 @@ class AuctionCircle extends Component {
         )
     }
 }
+ 
 class AuctionPreview extends Component {
     constructor(props) {
         super(props);
@@ -93,10 +94,10 @@ class AuctionPreview extends Component {
             let auctionItems = []
             var renderer = ({ days, hours, minutes, seconds, completed }) => {
                 if (completed) {
-                  // Render a completed state 
+                  // in case the auction is expired >> Render a completed state 
                   return <span>BOOM</span>;
                 } else {
-                  // Render a countdown 
+                  // if the auction is not expired yet >> Render a countdown 
                   return (
                   <span className='d-flex justify-content-end'>
                      <span className="d-flex flex-column">
@@ -145,7 +146,7 @@ class AuctionPreview extends Component {
         )
     }
 }
-
+//This class is for display the item's information inside specific auction with realtime bidding feature (only for authorized users)  
 class AuctionItem extends Component {
     render() {
         return(

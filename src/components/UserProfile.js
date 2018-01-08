@@ -43,7 +43,7 @@ export default class UserProfile extends Authorization {
                     <div className=" profile-header" style={{backgroundImage: "url(" + this.header_image + ")"}}>
                     </div>
                     <div className="image-username">                    
-                        <img className="profile-image" style={{width: "250px", "height": "250px", display: "block"}} src={this.props.currentUser.profileImg ? this.props.currentUser.profileImg:noUserImage} alt="Profile Image missing." className="rounded-circle" />  
+                        <img className="profile-image" style={{width: "250px", "height": "250px", display: "block"}} src={this.header_image} alt="Profile Image missing." className="rounded-circle" />  
                     <   span className="username">{this.props.currentUser.username}</span> 
                     </div>                   
                 </Col>

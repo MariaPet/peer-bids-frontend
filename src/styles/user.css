@@ -22,6 +22,7 @@
     height:150px;
     width:150px;
     display: block;
+    margin-left: -15px;
 }
 
 .profile-header{
@@ -43,6 +44,6 @@
     box-shadow: 0 0 0 0 #fff;
     margin-top: 40px;
 }
-.card-body{
+.card-body ul{
     text-transform:capitalize;
 }

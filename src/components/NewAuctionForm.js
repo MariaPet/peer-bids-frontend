@@ -29,8 +29,8 @@ export default class NewAuctionForm extends Authorization {
     }
     validate() {
         var errors = false;
-        if(this.state.pictures.length < 3) {
-            this.setState({picturesError: "You need to select 3 images of the product"});
+        if(this.state.pictures.length < 1) {
+            this.setState({picturesError: "You need to select at least 1 image of the product"});
             errors = true;
         }
         if(!this.state.title) {
@@ -84,16 +84,22 @@ export default class NewAuctionForm extends Authorization {
         switch(key) {
             case 'title':
             this.setState({titleError: ""});
+            break;
             case 'description':
             this.setState({descriptionError: ""});
+            break;
             case 'initial_price':
-            this.setState({initialPriceError: ""})
+            this.setState({initialPriceError: ""});
+            break;
             case 'status':
-            this.setState({statusError: ""})
+            this.setState({statusError: ""});
+            break;
             case 'expiration_date':
-            this.setState({expirationError: ""})
+            this.setState({expirationError: ""});
+            break;
             case 'category':
-            this.setState({categoryError: ""})
+            this.setState({categoryError: ""});
+            break;
         }
         let value = e.target.value;
         let newState = {};
@@ -120,7 +126,7 @@ export default class NewAuctionForm extends Authorization {
                     withIcon={false}
                     buttonText='Select product pics'
                     onChange={(file) => this.onDrop(file)}
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
                     maxFileSize={5242880}
                     label=""
                     className="w-50"
@@ -135,16 +141,11 @@ export default class NewAuctionForm extends Authorization {
                 <FormGroup className="w-75">
                     <Label for="title">Item Name</Label>
                     {this.state.titleError? 
-                    <Input name="title" valid={false}
-                    id="title" 
-                    placeholder="Enter a item name" 
-                    value={this.state.title} 
-                    onChange={this.onInput}/>:
-                    <Input name="title" 
-                    id="title" 
-                    placeholder="Enter a item name" 
-                    value={this.state.title} 
-                    onChange={this.onInput}/>
+                        <Input name="title" valid={false} id="title" placeholder="Enter a item name" 
+                        value={this.state.title} onChange={this.onInput}/>
+                    :
+                        <Input name="title" id="title" placeholder="Enter a item name" 
+                        value={this.state.title} onChange={this.onInput}/>
                     }
                     <FormFeedback>{this.state.titleError}</FormFeedback>
                 </FormGroup>
@@ -153,10 +154,12 @@ export default class NewAuctionForm extends Authorization {
                 <FormGroup className="w-75">
                     <Label for="description">Description</Label>
                     {this.state.descriptionError? 
-                    <Input valid={false} type="textarea" name="description" id="description" placeholder="Enter description" value={this.state.description} 
-                    onChange={this.onInput} />:
-                    <Input type="textarea" name="description" id="description" placeholder="Enter description" value={this.state.description} 
-                    onChange={this.onInput} />}
+                        <Input valid={false} type="textarea" name="description" id="description" 
+                        placeholder="Enter description" value={this.state.description} onChange={this.onInput} />
+                    :
+                        <Input type="textarea" name="description" id="description" placeholder="Enter description" value={this.state.description} 
+                        onChange={this.onInput} />
+                    }
                     <FormFeedback>{this.state.descriptionError}</FormFeedback>
                 </FormGroup>
             </Col>
@@ -164,18 +167,21 @@ export default class NewAuctionForm extends Authorization {
                 <FormGroup className="w-75">
                     <Label for="status">Status</Label>
                     {this.state.statusError?
-                    <Input valid={false} type="select" name="status" id="status" placeholder="Enter Status" value={this.state.status} 
-                    onChange={this.onInput} >
-                        <option></option>
-                        <option>New</option>
-                        <option>Used</option>
-                    </Input>:
-                    <Input type="select" name="status" id="status" placeholder="Enter Status" value={this.state.status} 
-                    onChange={this.onInput} >
-                        <option></option>
-                        <option>New</option>
-                        <option>Used</option>
-                    </Input>}
+                        <Input valid={false} type="select" name="status" id="status"
+                        placeholder="Enter Status" value={this.state.status} 
+                        onChange={this.onInput} >
+                            <option></option>
+                            <option>New</option>
+                            <option>Used</option>
+                        </Input>
+                    :
+                        <Input type="select" name="status" id="status" placeholder="Enter Status" 
+                        value={this.state.status} onChange={this.onInput} >
+                            <option></option>
+                            <option>New</option>
+                            <option>Used</option>
+                        </Input>
+                    }
                     <FormFeedback>{this.state.statusError}</FormFeedback>
                 </FormGroup>
             </Col>
@@ -183,10 +189,14 @@ export default class NewAuctionForm extends Authorization {
                 <FormGroup className="w-75">
                     <Label for="expiration_date">Expiration Date</Label>
                     {this.state.expirationError?
-                    <Input valid={false} type="date" name="expiration_date" id="expiration_date" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
-                    onChange={this.onInput} min= {this.getDateStrNow()}/>:
-                    <Input type="date" name="expiration_date" id="expiration_date" placeholder="Enter Expireation Date" value={this.state.expiration_date} 
-                    onChange={this.onInput} min= {this.getDateStrNow()}/>}
+                        <Input valid={false} type="date" name="expiration_date" id="expiration_date" 
+                        placeholder="Enter Expireation Date" value={this.state.expiration_date} 
+                        onChange={this.onInput} min= {this.getDateStrNow()}/>
+                    :
+                        <Input type="date" name="expiration_date" id="expiration_date" 
+                        placeholder="Enter Expireation Date" value={this.state.expiration_date} 
+                        onChange={this.onInput} min= {this.getDateStrNow()}/>
+                    }
                     <FormFeedback>{this.state.expirationError}</FormFeedback>
                 </FormGroup>
             </Col>
@@ -194,28 +204,32 @@ export default class NewAuctionForm extends Authorization {
                 <FormGroup className="w-75">
                     <Label for="category">Category</Label>
                     {this.state.categoryError?
-                    <Input valid={false} type="select" name="category" id="category" placeholder="Enter category" value={this.state.category} onChange={this.onInput}>
-                    <option></option>
-                    <option>Other</option>
-                    <option>Vehicles</option>
-                    <option>Furniture</option>
-                    <option>Accessories</option>
-                    <option>Electronics</option>
-                    <option>Clothing</option>
-                    <option>Sports</option>
-                    <option>Entertainment</option>
-                    </Input>:
-                    <Input type="select" name="category" id="category" placeholder="Enter category" value={this.state.category} onChange={this.onInput}>
-                    <option></option>
-                    <option>Other</option>
-                    <option>Vehicles</option>
-                    <option>Furniture</option>
-                    <option>Accessories</option>
-                    <option>Electronics</option>
-                    <option>Clothing</option>
-                    <option>Sports</option>
-                    <option>Entertainment</option>
-                    </Input>}
+                        <Input valid={false} type="select" name="category" id="category" 
+                        placeholder="Enter category" value={this.state.category} onChange={this.onInput}>
+                            <option></option>
+                            <option>Other</option>
+                            <option>Vehicles</option>
+                            <option>Furniture</option>
+                            <option>Accessories</option>
+                            <option>Electronics</option>
+                            <option>Clothing</option>
+                            <option>Sports</option>
+                            <option>Entertainment</option>
+                        </Input>
+                    :
+                        <Input type="select" name="category" id="category" placeholder="Enter category" 
+                        value={this.state.category} onChange={this.onInput}>
+                            <option></option>
+                            <option>Other</option>
+                            <option>Vehicles</option>
+                            <option>Furniture</option>
+                            <option>Accessories</option>
+                            <option>Electronics</option>
+                            <option>Clothing</option>
+                            <option>Sports</option>
+                            <option>Entertainment</option>
+                        </Input>
+                    }
                     <FormFeedback>{this.state.categoryError}</FormFeedback>
                 </FormGroup>
             </Col>
@@ -225,10 +239,14 @@ export default class NewAuctionForm extends Authorization {
                     <InputGroup>
                         <InputGroupAddon>£</InputGroupAddon>
                         {this.state.initialPriceError?
-                        <Input valid={false} type="number" name = "initial_price" id = "initial_price" placeholder="Enter the starting price" step="1" value={this.state.initial_price} 
-                        onChange={this.onInput}/>:
-                        <Input  type="number" name = "initial_price" id = "initial_price" placeholder="Enter the starting price" step="1" value={this.state.initial_price} 
-                        onChange={this.onInput}/>}
+                            <Input valid={false} type="number" name = "initial_price" id = "initial_price" 
+                            placeholder="Enter the starting price" step="1" value={this.state.initial_price} 
+                            onChange={this.onInput}/>
+                        :
+                            <Input  type="number" name = "initial_price" id = "initial_price" 
+                            placeholder="Enter the starting price" step="1" value={this.state.initial_price} 
+                            onChange={this.onInput}/>
+                        }
                     </InputGroup>
                     <div style={{color: "#dc3545", fontSize: "small"}}>{this.state.initialPriceError}</div>
                 </FormGroup>

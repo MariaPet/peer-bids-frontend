@@ -8,8 +8,8 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
-// const server = 'http://localhost:5000/';
-const server = 'https://peer-bids-back-end.appspot.com/';
+const server = 'http://localhost:5000/';
+// const server = 'https://peer-bids-back-end.appspot.com/';
 
 
 export const getAuctions = (searchTerms) => (dispatch, state) => {
@@ -114,7 +114,7 @@ export const uploadImage = (pictureState) => (dispatch, state) => {
 }
 
 export const createAuction = (auction) => (dispatch, state) => {
-    dispatch({type: 'AUCTIONS_LOADING'});
+    dispatch({type: 'AUCTIONS_LOADING', [ pendingTask ]: begin});
     var token = window.localStorage.getItem("idToken");
     var formData = new FormData();
     for(var key in auction)
@@ -142,16 +142,17 @@ export const createAuction = (auction) => (dispatch, state) => {
                 "x-access-token": token
             },
             success: function (responceData) {
-                dispatch({type: 'CREATE_AUCTION', auction: responceData.data});
+                dispatch({type: 'CREATE_AUCTION', auction: responceData.data, [ pendingTask ]: end});
+                browserHistory.push({pathname: '/'});
             },
             error: function() {
                 console.log('error with new auction')
-                dispatch({type: 'AUCTION_CREATION_FAILED'})
+                dispatch({type: 'AUCTION_CREATION_FAILED', [ pendingTask ]: end})
             }
         });
     }
     else {
-        dispatch({type: 'AUCTION_CREATION_FAILED'})
+        dispatch({type: 'AUCTION_CREATION_FAILED', [ pendingTask ]: end})
     }
 }
 

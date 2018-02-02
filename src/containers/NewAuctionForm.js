@@ -14,6 +14,7 @@ function mapDispatchToProps(auction) {
 export default connect(
     (state, props) => ({
         auction: state.auctions.newAuction,
+        loading: state.auctions.loading,
         currentUser: state.user.currentUser
     }),
     mapDispatchToProps

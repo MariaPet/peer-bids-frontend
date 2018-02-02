@@ -234,7 +234,7 @@ export default class NewAuctionForm extends Authorization {
                 </FormGroup>
             </Col>
             <Col sm="12" className="d-flex justify-content-center py-4">
-                <Button color="primary" onClick={this.validate}>Create Auction</Button>
+                <Button color="primary" onClick={this.validate} disabled={this.props.loading}>Create Auction</Button>
             </Col>
         
          </Row>

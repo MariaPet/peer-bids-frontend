@@ -8,8 +8,8 @@ import {
     end // The action value if a "long" running task ended
   } from 'react-redux-spinner';
 
-const server = 'http://localhost:5000/';
-// const server = 'https://peer-bids-back-end.appspot.com/';
+// const server = 'http://localhost:5000/';
+const server = 'https://peer-bids-back-end.appspot.com/';
 
 
 export const getAuctions = (searchTerms) => (dispatch, state) => {
